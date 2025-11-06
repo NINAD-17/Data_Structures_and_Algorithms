@@ -3,12 +3,15 @@
 using namespace std;
 
 int decimalToOctal(int decNum) {
-    int octalNum = 0, i = 0;
+    int octalNum = 0, i = 1;
 
     while(decNum != 0) {
         int octalDigit = decNum % 8;
-        octalNum += pow(10, i++) * octalDigit;
+        // cout << "Octal Digit: " << octalDigit << endl;
+        // octalNum += pow(10, i++) * octalDigit; // pow works with floating point numbers. sometimes it may produce 99.99... which will result in wrong calculation.
+        octalNum += i * octalDigit;
         decNum = decNum / 8;
+        i *= 10;
     }
 
     return octalNum;
