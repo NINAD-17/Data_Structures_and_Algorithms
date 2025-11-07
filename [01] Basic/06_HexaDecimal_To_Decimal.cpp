@@ -28,6 +28,7 @@ int hexaDecToDecimal(string num) {
 
         ans += pow(16, i++) * lastNumInt;
         num.pop_back();
+        num.resize(num.length() - 1); // 2nd method
     }
 
     return ans;
