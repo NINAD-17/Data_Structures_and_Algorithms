@@ -37,7 +37,7 @@ int main() {
     cout << "Enter a number: ";
     cin >> num;
 
-    cout << "You want full fibonacci series(1) or only fibonacci number from that place(2)? [choose(1 or 2)] -> ";
+    cout << "Do you want a full fibonacci series(1) or only fibonacci number from that place(2)? [choose(1 or 2)] -> ";
     cin >> responseNum;
 
     if(responseNum != 1) {

@@ -19,7 +19,7 @@ int compOfBase10Int(int base10Int) {
 // Lengthy code written by me
 // This function returns output as a binary number.
 int complimentOfBase10Int(int base10Int) {
-    int count = 0, ans = 0, i = 0;
+    int count = 0, ans = 0, i = 1;
     int complimentOfInt = ~base10Int;
 
     while(base10Int != 0) {
@@ -30,7 +30,8 @@ int complimentOfBase10Int(int base10Int) {
 
     while(count != 0) {
         int bit = complimentOfInt & 1;
-        ans += pow(10, i++) * bit;
+        ans += (i * bit);
+        i *= 10;
         complimentOfInt >>= 1;
         count--;
     }

@@ -2,6 +2,7 @@
 #include <math.h>
 using namespace std;
 
+// Below code is wrong. Refer 02_Decimal_To_Binary.cpp
 int makeItPositiveNum(int num) {
     return num * (-1);
 }
