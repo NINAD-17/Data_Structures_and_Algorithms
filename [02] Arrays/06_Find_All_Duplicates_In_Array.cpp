@@ -27,17 +27,16 @@ void findAllDuplicates(int *arr, int size, int* ansArr) {
         if(arr[i] == INT_MIN)
             continue;
         
-        int it = 0;
+        int count = 0;
         for(int j = i + 1; j < size; j++) {
             if(arr[i] == arr[j]) {
-                if(it == 0)
-                    ansArr[k++] = arr[i++];
-                else   
-                    it++;
+                count++;
                 arr[j] = INT_MIN;
-            } 
+            }
         }
-        it = 0;
+
+        if(count > 0)
+            ansArr[k++] = arr[i];
     }
 }
 
@@ -60,8 +59,8 @@ int main() {
     for(int i = 0; i < size; i++) 
         ansArr[i] = INT_MIN;
     
-    // findAllDuplicates(arr, size, ansArr);
-    findAllDuplicatesUsingUnorderedMap(arr, size, ansArr);
+    findAllDuplicates(arr, size, ansArr);
+    // findAllDuplicatesUsingUnorderedMap(arr, size, ansArr);
 
     if(ansArr[0] == INT_MIN)
         cout << "No duplicate element is found" << endl;

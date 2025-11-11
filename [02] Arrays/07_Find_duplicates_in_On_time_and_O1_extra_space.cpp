@@ -34,7 +34,7 @@ int findDuplicates(int *arr, int n, int *ans) {
         
         if(arr[i] == arr[i + 1]) {
             ans[k++] = arr[i];
-            i++;
+            // i++;
         }
     }
 

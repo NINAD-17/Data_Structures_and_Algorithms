@@ -1,6 +1,8 @@
 #include <iostream>
 using namespace std;
 
+// Time complexity: O(n)
+// Space complexity: O(1)
 void reverseArray(int *arr, int size) {
     int st = 0, en = size - 1;
 

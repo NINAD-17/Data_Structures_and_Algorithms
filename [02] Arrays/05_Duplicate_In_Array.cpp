@@ -10,6 +10,7 @@ using namespace std;
 
 // Using Unordered Map:
 // Time Complexity: O(n)
+// Space Complexity: O(n)
 int findDuplicate_unMap(int *arr, int size) {
     unordered_map<int, int> freq;
     for(int i = 0; i < size; i++) {
@@ -20,7 +21,13 @@ int findDuplicate_unMap(int *arr, int size) {
     return INT_MIN;
 }
 
-// Optimized approach: Note: But these approach only applicable when there is only one number is duplicate.
+// Optimized approach: 
+// Note: But these approach only applicable when there is only one number is duplicate.
+//      - The array has length n.
+//      - Every value is in the range [1, n − 1].
+//      - Exactly one number appears twice; all others appear once.
+//      - No zeros, no missing values beyond the single duplicate.
+
 // Time Complexity: O(n)
 // Space Complexity: O(1)
 // Remember that this algorithm only will work if there are [1, n - 1] elements are present. Ex [1, 5 - 1] then 1, 2, 3, 4 must be present.
