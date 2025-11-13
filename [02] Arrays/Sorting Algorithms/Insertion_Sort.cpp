@@ -1,8 +1,36 @@
 #include <iostream>
 using namespace std;
 
-// Time Complexity: O(n^2)
+// Example for Insertion Sort
+// Array: [12, 11, 13, 5, 6]
+// Step by step:
+//
+// i=1 (element = 11):
+//   Compare with 12 → shift 12 right
+//   Place 11 at index 0
+//   Result: [11, 12, 13, 5, 6]
+//
+// i=2 (element = 13):
+//   Compare with 12 → 13 > 12 → no shift
+//   Result: [11, 12, 13, 5, 6]
+//
+// i=3 (element = 5):
+//   Compare with 13 → shift 13 right
+//   Compare with 12 → shift 12 right
+//   Compare with 11 → shift 11 right
+//   Place 5 at index 0
+//   Result: [5, 11, 12, 13, 6]
+//
+// i=4 (element = 6):
+//   Compare with 13 → shift 13 right
+//   Compare with 12 → shift 12 right
+//   Compare with 11 → shift 11 right
+//   Place 6 at index 1
+//   Result: [5, 6, 11, 12, 13]
+//
+// Final Sorted Array: [5, 6, 11, 12, 13]
 
+// Time Complexity: O(n^2)
 int insertionSort(int *arr, int size) {
     for(int i = 1; i < size; i++) {
         int temp = arr[i];
@@ -13,6 +41,16 @@ int insertionSort(int *arr, int size) {
             else
                 break;
         }
+        /*
+        while(j >- 0) {
+            if(arr[j] > temp) {
+                arr[j + 1] = arr[j];
+            } else {
+                break;
+            }
+            j--;
+        }
+        */
         arr[j + 1] = temp;
     }
 }
