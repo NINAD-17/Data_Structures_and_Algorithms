@@ -44,7 +44,7 @@ int main() {
 
     int arr[5] = {1,2,3,4,5};
     cout << "sum: " << get_sum (arr, 5);
-    cout << "sum: " << get_sum(arr+3, 2); //address arr[4] to end; //9
+    cout << "sum: " << get_sum(arr+3, 2); //address arr[4] to end; //9 i.e (4 + 5)
 
     return 0;
 }

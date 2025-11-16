@@ -4,6 +4,22 @@
 - A **Symbol Table** is a crucial data structure created and maintained by the compiler to keep track of the semantics of variables. It stores information about the scope and binding information about names, instances of various entities such as variable and function names, classes, objects, etc.
 - For example, `int num = 5;` Here, `num` is mapped to the address of a memory location where `5` is stored.  `num ----> address`
 - `cout << num << endl;` In this case, it first finds the address mapped to the `num` variable and then prints the content from that address (here it is `5`).
+- It maps names (like num) to metadata:
+    - Variable type (int, double, etc.)
+    - Scope (local, global, class member…)
+    - Storage class (static, extern…)
+    - Address (where in memory the variable lives at runtime)
+- Example: 
+    ```cpp
+    int num = 5;
+    ```
+    Symbol Table Entry:
+    ```
+    name: num
+    type: int
+    scope: local
+    address: 0x61fee4
+    ```
 
 ## 'Address of' Operator (&) 
 - It can be used to find the address of any variable mapped to it.
@@ -20,10 +36,14 @@ For example: `int *ptr = 0;` After that, if you want to point it to a location t
 - `int *ptr` means that `ptr` is a pointer to the `int` data type.
 
 ## De-reference Operator (*)
-- It means that whenever you access *var_name then it will give you content stored in that address (which is stored in pointer variable).
+- It means that whenever you access `*var_name` then it will give you content stored in that address (which is stored in pointer variable).
 For example: `cout << *ptr << endl;` means it will give you output `5` if `int num = 5;`.
 
-- For any data types, a pointer will always store the address of a memory location, therefore its size will always be `8 bytes`. 
+- For any data types, a pointer will always store the address of a memory location, therefore its **size will always be `8 bytes`**. 
+    - On modern 64‑bit systems, a pointer is 8 bytes because it must hold a 64‑bit memory address.
+    - On 32‑bit systems, a pointer is 4 bytes.
+    - Important: pointer size is independent of the type it points to.
+        - int*, char*, double* → all 8 bytes on 64‑bit.
 
 - **Copying a Pointer into Another Pointer**:
 ```
@@ -72,6 +92,17 @@ int *f = e;
     2. `char *ptr = &ch[0];`: In this case, `ABCDE\0` stored in temp memory. and then first element's address will be given to `ptr`.
 - So don't do this -> `*charPtr = &ch`;
 
+- **Why cout << ch prints the whole string**
+    - cout has an overload for const char* that treats it as a C-string (sequence of chars ending with '\0'). It prints characters until the null terminator.
+    - cout << (void*)ch forces printing the address instead (no string interpretation).
+    - **To force address printing for any pointer (including char*), cast to void**
+        - Ex - `cout << (void*)ptr;`
+- **Why cout << chPtr2 prints garbage after 'A'**
+    - char ch2 = 'A'; is a single char, not a C-string (no '\0').
+    - char* chPtr2 = &ch2; points to 'A' only. cout assumes char* is a C-string and keeps reading memory past 'A' until it randomly encounters '\0'. That’s why you see garbage.
+- Concept used: 
+    1. **C-String**: A C-string is a contiguous array of characters terminated by a null character '\0'.
+    2. **Overloading**: Overloading is defining multiple functions/operators with the same name but different parameter types or counts.
 
 ## Pointers in functions
 - When you pass array in a function then it not copy full array to that function but it passes a pointer of that array to function.
@@ -93,9 +124,9 @@ int *f = e;
 int i = 5;
 int *ptr = &i;
 int **Ptr2 = &ptr; // Double pointer
-int ***ptr3 = &ptr2; // you can also able to use this three pointer ans so on.
+int ***ptr3 = &ptr2; // you can also able to use this three pointer and so on.
 ```
-<img width=300 src="/Pointers/image.png" alt="Double pointer" />
+<img width=300 src="double_pointer.png" alt="Double pointer" />
  
 In symbol table, <br>
-<img width=300 src="/Pointers/image-1.png" alt="Symbol Table" />
+<img width=300 src="symbol_table.png" alt="Symbol Table" />

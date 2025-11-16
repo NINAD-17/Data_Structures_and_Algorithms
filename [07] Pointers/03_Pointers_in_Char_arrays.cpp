@@ -10,11 +10,16 @@ int main() {
 
     char *chPtr = &ch[0];
     cout << "Printing entire char array: " << chPtr << endl;
+    cout << "Address using & operator: " << &ch << endl;
     cout << "Address of chPtr: " << &chPtr << endl;
 
     char ch2 = 'A';
     char *chPtr2 = &ch2;
+    cout << "Address using & operator: " << &ch2 << endl;
     cout << "Printing content of ch2 using pointer: " << chPtr2 << endl;
+    cout << "Printing address of chPtr2 variable: " << &chPtr2 << endl;
+
+    cout << "Printing address of ch2 by type casting it to void*: " << (void*)chPtr2 << endl;
 
     return 0;
 }

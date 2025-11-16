@@ -11,7 +11,7 @@ int main () {
     cout << "first = " << first << " second = " << second << endl;
     */
 
-   /*
+    /*
     int first = 6;
     int *p = &first;
     int *q = p;
@@ -53,7 +53,7 @@ int main () {
 
     /*
     int arr[5]; // int = 4 (therefore, 4 * 5 = 20);
-    int *ptr; // ptr size: 8 (address size is always 8 for every datadype);
+    int *ptr; // ptr size: 8 (address size is always 8 for every datatype);
     cout << sizeof(arr) << " " << sizeof(ptr) << endl;
     */
 
@@ -93,7 +93,7 @@ int main () {
     char ch = 'a';
     char* ptr = &ch;
     ch++;
-    cout << *ptr << endl;
+    cout << *ptr << endl; // This will output correctly but if you use cout << ptr then it'll run till '\0' character
     */
 
     /*

@@ -5,7 +5,7 @@ void update(int **ptr2) {
     // Uncomment each line below one by one and execute code to see output. Don't uncomment all lines and run all lines at once.
     // ptr2 = ptr2 + 1; // Change will be only in function. So no change in original values
     // *ptr2 = *ptr2 + 1; // Change in address pointed by ptr. Change in original value.
-    **ptr2 = **ptr2 + 1; // Change in value of ptr2 ==> 6. Change in original value.
+    // **ptr2 = **ptr2 + 1; // Change in value of ptr2 ==> 6. Change in original value.
 }
 
 int main() {
