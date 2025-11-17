@@ -10,11 +10,13 @@ int main() {
     int ans = 0;
 
     ans = getMax(a, b);
+    cout << ans << endl;
 
     a = a + 3;
     b = b + 1;
 
     ans = getMax(a, b);
+    cout << ans << endl;
 
     return 0;
 }

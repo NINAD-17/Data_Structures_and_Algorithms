@@ -17,9 +17,9 @@
 
 # Global Variables
 - If you've a variable and you wanted to share it between functions then use either reference variable or you also can able to use global variables
-- If you've defined a variable in a function then it's a local variable its scope is only in that function after that function that variable gets free.
+- If you've defined a variable in a function then it's a local variable its scope is only in that function. After that function, that variable gets free.
 - Don't use globle variables. It's a BAD PRACTICE.
-- It's disadvantage is that, it can be changed by any functions. Therefore always use reference variable instead.
+- Its disadvantage is that, it can be changed by any functions. Therefore, always use reference variable instead.
 
 # Tertiary Operator
 ```
