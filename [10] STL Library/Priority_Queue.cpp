@@ -10,7 +10,7 @@ int main() {
     // Min Heap: Whenever we'll fetch the element out, then that will always be the smallest element.
     priority_queue<int, vector<int>, greater<int>> mini;
 
-    maxi.push(1);
+    maxi.push(1); // Time complexity: O(log n) - inserts element and re‑heaps to maintain order
     maxi.push(4);
     maxi.push(3);
     maxi.push(0);
@@ -38,7 +38,7 @@ int main() {
     int m = mini.size();
     for(int i = 0; i < m; i++) {
         cout << mini.top() << " ";
-        mini.pop();
+        mini.pop(); // Time complexity: O(log n) - removes top element and re‑heaps
     }
     cout << endl;
 
