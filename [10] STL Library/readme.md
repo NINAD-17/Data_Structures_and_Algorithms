@@ -1,6 +1,16 @@
 # CPP STL Library
 
+## What is STL?
+- STL (Standard Template Library) is a collection of generic classes and functions in C++ that provide common data structures and algorithms.
+- It saves you from writing everything from scratch — you get ready‑made, efficient implementations of containers, iterators, and algorithms.
+- STL is built on three pillars:
+    - **Containers** → data structures (like arrays, vectors, sets, maps).
+    - **Iterators** → objects that behave like pointers, used to traverse containers.
+    - **Algorithms** → functions like sort, find, count, reverse, etc., that work with containers via iterators.
+
 ### Containers
+A container is simply an object that stores a collection of elements. They are implemented as class templates, so you can store any type (int, string, custom class, etc.).
+
 In C++, a container is a holder object that stores a collection of other objects (its elements). Containers are implemented as class templates, which allows great flexibility in the types supported as elements. The container manages the storage space for its elements and provides member functions to access them, either directly or through iterators (reference objects with similar properties to pointers).
 
 - 1. **Sequence Container**
@@ -139,3 +149,14 @@ In C++, a container is a holder object that stores a collection of other objects
 
 17. **none_of**
     - If all elements not satisfied a condition then only o/p is true.
+
+
+### Iterator: 
+- An iterator is an object that behaves like a pointer but is not always a raw memory address.
+- It’s a general mechanism in C++ STL to traverse containers (like vector, set, map).
+- Think of it as: “a cursor pointing to an element inside a container.”
+- For simple containers like vector, iterators are often implemented as raw pointers internally (so yes, they directly represent memory addresses).
+- For complex containers like set or map (which are tree-based), iterators are objects that internally store information about the node in the tree. They aren’t just plain addresses, but they still behave like pointers.
+- So: iterators act like pointers, but they may be more complex under the hood.
+    - Without *, itr itself is just the iterator object (like a pointer variable).
+    - With *, you dereference it to get the actual element.
