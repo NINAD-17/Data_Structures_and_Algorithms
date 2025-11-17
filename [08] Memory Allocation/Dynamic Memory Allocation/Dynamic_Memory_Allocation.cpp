@@ -13,4 +13,6 @@ int main() {
 
     // Allocating n size in heap
     int *arr = new int[n];
+
+    delete []arr; // Deallocate space
 }

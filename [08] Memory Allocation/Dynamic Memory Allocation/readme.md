@@ -17,7 +17,7 @@ To create variable size arrays, use **HEAP**.
 Heap memory allocation is based on runtime. To use heap memory, use the `new` keyword.
 
 For instance, to allocate memory for a character, use `new char;`. This will allocate the required memory for one `char` and return the address of that memory location. We can't give a name to this memory like we do in stack allocation (`int num;` where `num` is the name of that memory). In heap allocation, it only returns an address. We need a pointer to store that address so we can access that memory location using the pointer's name. For example: `char *ch = new char;`.<br><br>
-<img width=300 src="/Memory Allocation/Dynamic Memory Allocation/image.png" alt="Dynamic memory allocation Example" />
+<img width=300 src="image.png" alt="Dynamic memory allocation Example" />
 
 To create an array of size `5` in heap, use `int *arr = new int[5];`. The total memory required would be `5 * (int_size = 4)` i.e., `20 bytes` for the array and `8 bytes` for the pointer, totaling to `28 bytes`.
 
@@ -41,13 +41,34 @@ To create an array of size `5` in heap, use `int *arr = new int[5];`. The total 
     -   The size of static memory is determined at compile time.
     -   It is typically small compared to heap memory.
     -   The exact size depends on the program's global and static variables.
+    Simple explaination: 
+    - What goes here: Global variables, static variables, string literals.
+    - When allocated: At program start, by the OS loader.
+    - Lifetime: Exists for the whole program run.
+    - Example: 
+        ```cpp
+        int globalVar = 10;   // lives in static memory
+        static int counter = 0; // also static memory
+        ```
 2.  Stack Memory:
 
     -   Stack memory is used for function call frames (local variables, function parameters, return addresses).
     -   Each function call creates a new stack frame.
     -   The stack size is usually limited (e.g., a few megabytes).
     -   The compiler doesn't calculate stack usage; it's the programmer's responsibility.
-    -   Stack memory is managed automatically during function calls and returns.
+    -   Stack memory is managed automatically during function calls and returns.  
+    - Simple explaination: 
+        - What goes here: Local variables inside functions, function parameters, return addresses.
+        - When allocated: Each time a function is called, a new “stack frame” is pushed.
+        - Lifetime: Exists only while the function is running. Freed automatically when the function returns.
+        - Example: 
+        ```cpp
+        void foo() {
+            int x = 5;   // lives on stack
+        } // x disappears when foo ends
+        ```
+        - Think of it as: “temporary workspace for each function call.”
+        - Limit: Stack size is small (few MB). If you put huge arrays here, you can crash with a stack overflow.
 3.  Heap Memory:
 
     -   Heap memory (also known as dynamic memory) is used for dynamically allocated objects.
@@ -56,6 +77,17 @@ To create an array of size `5` in heap, use `int *arr = new int[5];`. The total 
     -   The operating system manages heap memory.
     -   The lifetime of heap-allocated memory extends until explicitly freed (using `delete` or `free`) or until program termination.
     -   Heap memory is accessible from the entire program.
+    - Simple Explaination:
+        - What goes here: Dynamically allocated memory (new, malloc, std::vector).
+        - When allocated: Only when you ask for it at runtime.
+        - Lifetime: Exists until you delete it (or program ends).
+        - Example: 
+        ```cpp
+        int* arr = new int[1000]; // lives on heap
+        delete[] arr;             // must free manually
+        ```
+        - Think of it as: “big warehouse managed by the OS, you request space when needed.”
+        - Limit: Heap can grow large, but if RAM is full or fragmented, allocation can fail.
 4.  Operating System and Physical Memory:
 
     -   The operating system manages physical memory (RAM).

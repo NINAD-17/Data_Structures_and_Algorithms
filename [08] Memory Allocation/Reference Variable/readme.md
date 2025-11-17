@@ -37,3 +37,44 @@ int& update(int n) {
 Here, `ans` variable is returning as a reference means, when in main function variable `a` in which output value is going to be store it's now second name of `ans` variable.
 
 - Here is a big mistake is that, lifespan of local variable is limited to the function only. After that they will not be able to accessible. So when `update()` function's block gets over and memory gets cleared, there is nothing remaining to pass. So it's very dangerous. 
+
+
+## Extra Notes:
+- **Case 1:** Keep `foo(int &p)` and call with `foo(*p)`
+    ```cpp
+    void foo(int &p) {}
+
+    int main() {
+        int i = 5;
+        int *p = &i;
+
+        foo(*p);   // dereference pointer, pass the int itself
+    }
+    ```
+    - `*p` gives you the actual int stored at the address.
+    - `foo(int &p)` expects a reference to an int.
+    - So `p` inside `foo` becomes an alias for `i`.
+    - No new memory, just another name for `i`.
+
+- **Case 2:** Change function to take a pointer
+    ```cpp
+    void foo(int *p) {}
+
+    int main() {
+        int i = 5;
+        int *p = &i;
+
+        foo(p);   // pass the pointer itself
+    }
+    ```
+    - `foo(int *p)` expects a pointer to int.
+    - You pass `p`, which is already an `int*`.
+    - Inside `foo`, you can access the value with `*p`.
+    - Here you’re passing the address, not the int itself.
+
+- Key difference:
+    - `foo(int &p)` → parameter is an alias for the int variable.
+    - `foo(int *p)` → parameter is a pointer storing the address of the int.
+    Both are valid, but they mean different things:
+    - Reference version: “I want direct access to the variable itself.”
+    - Pointer version: “I want the address, and I’ll dereference it if I need the value.”
