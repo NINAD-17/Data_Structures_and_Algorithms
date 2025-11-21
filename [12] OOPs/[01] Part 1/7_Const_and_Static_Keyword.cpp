@@ -48,13 +48,42 @@ int main() {
     int num = 100;
 
     // --- Constant Keyword
-    const int num1 = 10;
-    // num1++; // Error: you can't update value of constants after declaration. And it should be declare/define at the time of initialization only.
+    const int num1 = 10;  
+    // num1++; // ❌ Error: num1 is constant, its value cannot be modified after initialization.
+    // Rule: const variables must be initialized at the time of declaration and cannot be reassigned later.
 
-    const int* num2 = &num1; // pointer points to a constant value
-    
-    int* const num3 = &num; // constant pointer points to an int
-    const int* const num4 = &num1; // constant pointer points to an constant int.
+
+    // -----------------------------
+    // Case 1: const int* num2 = &num1;
+    // -----------------------------
+    // "Pointer to a constant int"
+    // Meaning: You cannot change the value through this pointer, but the pointer itself can point to another int.
+    const int* num2 = &num1;  
+    // *num2 = 20; // ❌ Error: cannot modify the value (num1) via num2
+    // num2 = &someOtherInt; // ✅ Allowed: pointer can be redirected to another int
+
+
+    // -----------------------------
+    // Case 2: int* const num3 = &num;
+    // -----------------------------
+    // "Constant pointer to int"
+    // Meaning: The pointer itself cannot change (always points to the same address), 
+    // but the value at that address can be modified.
+    int num = 50;
+    int* const num3 = &num;  
+    // *num3 = 60; // ✅ Allowed: can modify the value at address
+    // num3 = &anotherInt; // ❌ Error: pointer cannot be reassigned to another address
+
+
+    // -----------------------------
+    // Case 3: const int* const num4 = &num1;
+    // -----------------------------
+    // "Constant pointer to a constant int"
+    // Meaning: Neither the pointer can change, nor the value it points to can be modified.
+    const int* const num4 = &num1;  
+    // *num4 = 30; // ❌ Error: cannot modify value
+    // num4 = &anotherInt; // ❌ Error: cannot change pointer target
+
 
     Hero captain;
     captain.setHealth(100);

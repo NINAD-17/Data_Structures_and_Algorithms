@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-// Multi-level
+// Multiple-level
 // Animal -> Hybrid
 // Human -> Hybrid
 

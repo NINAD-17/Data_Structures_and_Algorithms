@@ -8,7 +8,7 @@ class Hero {
         int health;
     
     public:
-        char *name;
+        char *name; // Pointer to a C-style string (stored in heap)
         char level;
 
         // Constructor
@@ -22,9 +22,10 @@ class Hero {
         Hero(int health, char level) {
             this -> health = health;
             this -> level = level;
+            name = new char[100]; // Always allocate memory for name
         }
 
-        // Writing own copy constructor
+        // Writing own copy constructor - Deep copy constructor
         Hero(Hero &otherHero) {
             cout << "My copy constructor called!" << endl;
 
@@ -32,9 +33,12 @@ class Hero {
             this -> health = otherHero.health;
             this -> level = otherHero.level;
 
-            // Making of new character array
+            // Making of new character array - Allocate new memory for name (deep copy)
             char *newCharArr = new char[strlen(otherHero.name) + 1]; // + 1 for null character.
+
+            // Copy string from otherHero's name into newCharArr
             strcpy(newCharArr, otherHero.name);
+
             this -> name = newCharArr; // We've assigned an address of newCharArr to the pointer *name
         }
 
@@ -44,6 +48,7 @@ class Hero {
             cout << "Level: " << level << endl;
         }
 
+        // Getters
         int getHealth() {
             return health;
         }
@@ -52,6 +57,7 @@ class Hero {
             return level;
         }
 
+        // Setters
         void setHealth(int h) {
             health = h;
         }
@@ -61,7 +67,7 @@ class Hero {
         }
 
         void setName(char name[]) {
-            strcpy(this -> name, name);
+            strcpy(this -> name, name); // Copy string into allocated memory
         }
 };
 
@@ -85,8 +91,8 @@ int main() {
 
     strcpy(name, "Captain Cool");
     captain.setName(name);
-    // As the name is a pointer, both hero objects are accessing same memory location for name.
-    // Therefore, after updating captain's name it also updated unknownhero's name.
+    // If default copy constructor (shallow copy): As the name is a pointer, both hero objects are accessing same memory location for name. Therefore, after updating captain's name it also updated unknownhero's name.
+    // If own copy constructor (deep copy): Then both unknownHero and captain will have no effect on updating any object - both have separate memory location for name
 
     cout << endl;
     captain.print();

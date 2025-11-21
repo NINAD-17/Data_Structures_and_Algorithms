@@ -1,6 +1,10 @@
 #include <iostream>
 using namespace std;
 
+// A) Compile time polymorphism
+//      - Function overloading
+//      - Operator overloading
+
 class A {
     public:
         // -- Function Overloading
