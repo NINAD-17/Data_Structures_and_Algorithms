@@ -65,18 +65,126 @@ Above solution is already implemented and to use this we use 2D Arrays.
     **Note:** When you declare a vector without specifying its size, it’s initially empty, which means it has no elements and its size is 0. If you try to access an element in an empty vector using the `[]` operator, you’re trying to access memory that hasn’t been allocated, which leads to undefined behavior.
     If you want to do it with same way `vector<vector<int>> arr;` then you've to use `resize()` function. See Example on `1_Intro.cpp` file.
 
+## Resizing `vector<vector<data_type>>`
+- `vector<vector<int>> arr;` starts empty.
+- When you call `arr.resize(i);`, you create `i` rows (each is an empty vector).
+- Then for each row, `arr[i].resize(j);` creates `j` columns initialized to 0.
+- Without resizing, `arr[i][j]` would be invalid because the inner vectors don’t exist yet.
+- So yes, resizing ensures you can safely access `arr[i][j]`.
+👉 Resizing = “allocate memory for rows and columns, fill with 0s.”
   
+---
+---
+
 ## Problems:
-1. **Spiral Print:**
+### 1. Matrix Multiplication
+
+  - *A<sub>m × n</sub> × B<sub>n × p</sub> = C<sub>m × p</sub>*
+
+  - If matrix1 has m rows and n columns,
+  
+  - And matrix2 has n rows and p columns,
+  
+  - Then the **result (ans) will have m rows and p columns**.
+
+  - 👉 Condition: columns of A = rows of B (the “inner dimensions” must match). <br>
+  - 👉 **Result: rows of A × columns of B** (the “outer dimensions” form the result).
+
+  - **Ex** - **Matrix A(2 × 3) & Matrix B(3 × 4)**
+    ```
+    Matrix A: [ a11  a12  a13 ]  |  Matrix B: [ b11  b12  b13  b14 ]
+              [ a21  a22  a23 ]  |            [ b21  b22  b23  b24 ]
+                                |            [ b31  b32  b33  b34 ] 
+    ```
+
+    **Result: Matrix C(2 × 4)**
+    ```
+    Matrix C: [ c11  c12  c13  c14 ]
+              [ c21  c22  c23  c24 ]
+    ```
+
+  - C has rows = rows of A (2)
+  - C has columns = columns of B (4)
+  - Each element of C is computed as:
+      
+      C<sub>ij</sub> = a<sub>i1</sub> • b<sub>1j</sub> + a<sub>i2</sub> • b<sub>2j</sub> + a<sub>i3</sub> • b<sub>3j</sub>
+
+#### Example:
+  * **Matrix A (2×2)**:
+    ```
+    [ 1  2 ]
+    [ 3  4 ]
+    ```
+    Indices: A-00=1, A-01=2, A-10=3, A-11=4
+
+  * **Matrix B (2×3)**:
+    ```
+    [ 5  6  7 ]
+    [ 8  9 10 ]
+    ```
+    Indices: B-00=5, B-01=6, B-02=7, B-10=8, B-11=9, B-12=10
+
+  - Validity condition: cols(A)=2 must equal rows(B)=2 → valid.
+  - Result size: A(m×n) × B(n×p) = C(m×p) → C is 2×3 (not 2×2).
+
+##### Can we swap A and B?
+- A×B is defined because 2 (cols of A) = 2 (rows of B). Result is 2×3.
+- B×A would require cols(B)=3 to equal rows(A)=2 → not equal → B×A is NOT defined.
+- In general, matrix multiplication is not commutative; A×B may exist while B×A doesn’t, and even if both exist, A×B ≠ B×A.
+
+##### How each element of C is computed
+  Rule: C[i][j] = dot product of row i of A and column j of B.
+
+  Let’s compute all 6 elements for C (2×3): C-00, C-01, C-02, C-10, C-11, C-12.
+
+  Row 0 of A: [1, 2]
+
+  Row 1 of A: [3, 4]
+
+  Column 0 of B: [5, 8]
+
+  Column 1 of B: [6, 9]
+
+  Column 2 of B: [7, 10]
+
+  * First row of C (i = 0)
+    - C-00 = row0(A) ⋅ col0(B) = (1×5) + (2×8) = 5 + 16 = 21
+    - C-01 = row0(A) ⋅ col1(B) = (1×6) + (2×9) = 6 + 18 = 24
+    - C-02 = row0(A) ⋅ col2(B) = (1×7) + (2×10) = 7 + 20 = 27
+
+  * Second row of C (i = 1)
+    - C-10 = row1(A) ⋅ col0(B) = (3×5) + (4×8) = 15 + 32 = 47
+    - C-11 = row1(A) ⋅ col1(B) = (3×6) + (4×9) = 18 + 36 = 54
+    - C-12 = row1(A) ⋅ col2(B) = (3×7) + (4×10) = 21 + 40 = 61
+
+  * **Final matrix C (2×3)**
+    ```
+    [ 21  24  27 ]
+    [ 47  54  61 ]
+    ```
+  --- 
+
+
+- Note: To perform multiplication of two matrices, we should make sure that the **number of columns in the 1st matrix is equal to the rows in the 2nd matrix.**
+
+- if you have two matrices A and B:
 ```
-| 0 | 1 | 2 |
-| 3 | 4 | 5 |
-| 6 | 7 | 8 |
+A = [a b]     B = [e f]
+    [c d]         [g h]
 ```
+The resulting matrix C would be:
+`C = [ae+bg af+bh] [ce+dg cf+dh]`
+
+### 2. Spiral Print:
+  ```
+  | 0 | 1 | 2 |
+  | 3 | 4 | 5 |
+  | 6 | 7 | 8 |
+  ```
 
 ![Spiral Print](images/image-1.png)
 
-2. **Transpose of Matrix:**
+### 3. Transpose of Matrix:
 -  Transpose of a matrix is obtained by interchanging all rows to columns and columns to rows.
 ```
 | 1 | 2 | 3 |                     | 1 | 4 | 7 |
@@ -85,19 +193,7 @@ Above solution is already implemented and to use this we use 2D Arrays.
 ```
 - Transpose of matrix is **only possible for square matrix.** (Number of rows = Number of cols)
 
-3. **Matrix Multiplication:**
-- Note: To perform multiplication of two matrices, we should make sure that the **number of columns in the 1st matrix is equal to the rows in the 2nd matrix.**
-
-- if you have two matrices A and B:
-```
-A = [a b] [c d]
-
-B = [e f] [g h]
-```
-The resulting matrix C would be:
-`C = [ae+bg af+bh] [ce+dg cf+dh]`
-
-4. **Search in 2D Matrix:**
+### 4. Search in 2D Matrix:
 ```
 | 1 | 2 | 3 |  Index--  0   1   2   3   4   5   6   7   8
 | 4 | 5 | 6 |   ==>   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |

@@ -54,6 +54,7 @@ int main() {
     // vector<vector<int>> arr3(3, vector<int>(3));
     
     int arr[10][10];
+    cout << "addr" << &arr << endl;
     // Take Input
     for(int row = 0; row < 3; row++) {
         for(int col = 0; col < 3; col++) {

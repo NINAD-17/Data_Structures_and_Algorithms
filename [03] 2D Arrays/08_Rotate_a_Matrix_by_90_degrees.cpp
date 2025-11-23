@@ -17,9 +17,9 @@ vector<vector<int>> rotateBy90Deg(vector<vector<int>> arr) {
     for(int i = 0; i < cols; i++)
         v[i].resize(rows);
 
-    for(int i = 0; i < arr.size(); i++) {
-        for(int j = 0; j < arr[i].size(); j++)
-            v[j][(arr.size() - 1) - i] = arr[i][j];
+    for(int i = 0; i < rows; i++) {
+        for(int j = 0; j < cols; j++)
+            v[j][(rows - 1) - i] = arr[i][j];
     }
 
     return v;
@@ -54,23 +54,24 @@ void printVector(vector<vector<int>> v) {
 }
 
 int main() {
-    vector<vector<int>> arr;
-    int rows, cols;
+    vector<vector<int>> arr = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    int rows = 3, cols = 3;
 
-    cout << "Enter total number of rows & cols: \nRows: ";
-    cin >> rows;
-    cout << "Cols: ";
-    cin >> cols;
 
-    arr.resize(rows);
-    for(int i = 0; i < rows; i++)
-        arr[i].resize(cols);
+    // cout << "Enter total number of rows & cols: \nRows: ";
+    // cin >> rows;
+    // cout << "Cols: ";
+    // cin >> cols;
+
+    // arr.resize(rows);
+    // for(int i = 0; i < rows; i++)
+    //     arr[i].resize(cols);
     
-    cout << "Enter " << rows * cols << " elements: ";
-    for(int row = 0; row < rows; row++) {
-        for(int col = 0; col < cols; col++) 
-            cin >> arr[row][col];
-    }
+    // cout << "Enter " << rows * cols << " elements: ";
+    // for(int row = 0; row < rows; row++) {
+    //     for(int col = 0; col < cols; col++) 
+    //         cin >> arr[row][col];
+    // }
 
     cout << "Your Matrix: " << endl;
     printVector(arr);
