@@ -11,6 +11,7 @@ int addDigitsUsingDigitalRootFormula(int num) {
 }
 
 // Time Complexity: The number of iterations of this loop is equal to the number of digits in the input number, which is O(log n).
+//                  Read the explaination of time complexity in readme.md
 // Space Complexity: O(1)
 int addDigits(int num) {
     int ans = 0;
