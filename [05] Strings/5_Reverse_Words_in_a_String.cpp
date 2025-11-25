@@ -3,11 +3,14 @@
 using namespace std;
 
 // Time Complexity: O(n)
-// The += operator is used to append each reversed word to the ans string. 
-// In C++, this operation can take up to O(n) time in the worst case, 
-// as it may involve creating a new string and copying all characters from both the ans string and the reversed word. 
-// However, since this operation is performed once for each word and not for each character, its cost is amortized over all operations, 
-// and it does not change the overall time complexity of O(n).
+// - The outer loop runs once per character in the sentence (O(n)).
+// - reverseString(temp) runs in O(m) for each word of length m,
+//   but across the whole sentence the total of all m = n,
+//   so all reversals together cost O(n).
+// - String appends (ans += ...) can be O(n) in worst case,
+//   but amortized across all operations they remain O(n).
+// Overall: O(n) time, O(1) extra space.
+
 
 string reverseString(string temp) {
     int st = 0, en = temp.size() - 1;
@@ -21,7 +24,7 @@ string reverseString(string temp) {
 string reverseWords(string str) {
     string temp = "", ans = "";
 
-    for(int i = 0; i < str.length(); i++) {   // for(int i = 0; i <= str.length(); i++) 
+    for(int i = 0; i < str.length(); i++) {   // Avoid: for(int i = 0; i <= str.length(); i++) // Works, but technically unsafe because str[str.length()] is undefined.
 
         if(str[i] == ' ') {  // str[i] == ' ' || str[i] == '\0' Read more about this condition in readme.md as it's not good code
             temp = reverseString(temp);

@@ -12,6 +12,7 @@ void replaceSpaces2(string &str) {
 
     int newLength = str.length() + spaceCount * 2; // SpaceCount = 2 and not 3 because, EX. 2 spaces * 2 = 4, now add those 2 spaces -> 4 + 2 = 6
     str.resize(newLength);
+    cout << str << "." << endl;
 
     for(int i = strSize - 1; i >= 0; i--) { // strSize is original size of String
         if(str[i] == ' ') {
@@ -45,8 +46,8 @@ int main() {
     cout << "Enter a string: ";
     getline(cin, str);
 
-    // string ans = replaceSpaces(str);
-    // cout << ans << endl;
+    string ans = replaceSpaces(str);
+    cout << ans << endl;
 
     replaceSpaces2(str);
     cout << str << endl;

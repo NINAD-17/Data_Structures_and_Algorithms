@@ -12,14 +12,14 @@ int main() {
     // take input
     cout << "Enter your name: ";
     cin >> name;
+    cout << "Your name is " << name << endl;
 
     // Add Null char in between 
     name[2] = '\0'; // Because of this output will be print only 1st two characters only.
 
     // print output
     cout << "Your name is " << name << endl;
-
-
+    cout << "***********************************" << endl << endl;
 
     /************ String **************/
     string s; 
@@ -29,7 +29,7 @@ int main() {
 
     cout << "Your string is " << s << endl;
     cout << "Lenght of your string is " << s.length() << endl;
-
+    cout << "***********************************" << endl << endl;
 
 
     /*************** Difference between string and character array ******************/
@@ -37,7 +37,7 @@ int main() {
     char str2[10] = "ab\0cd\0";
 
     cout << "String: " << str << "\tChar Array: " << str2 << endl;
-
+    cout << "***********************************" << endl << endl;
 
     /************************* String Operations *****************************/
     string fname = "Taehyung";
@@ -46,12 +46,12 @@ int main() {
     lname.append(" " + fname);
     cout << "Lname: " << lname << endl;
 
-    cout << "char at pos 4: " << lname.at(4) << endl;
+    cout << "char at pos 4: " << lname.at(4) << endl; // lname = "Kim Taehyung"
 
     if(lname.empty())
         cout << "last name is empty." << endl;
     else 
-        cout << "last name is " << lname << endl;
+        cout << "last name isn't empty -> " << lname << endl;
 
     // find -> returns index of first letter
     cout << "find kim: " << lname.find("Tae") << endl;
@@ -97,6 +97,8 @@ int main() {
     // Erase
     a = "This is an example sentence.";
     a.erase(10, 8); // This is an sentence.
+    cout << "Size: " << fname.size() << endl;
+    cout << "Length: " << fname.length() << endl;
 
     // replace
     base = "this is a test string.";

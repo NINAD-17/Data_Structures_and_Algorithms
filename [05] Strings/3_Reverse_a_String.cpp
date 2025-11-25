@@ -1,13 +1,14 @@
 #include <iostream>
 using namespace std;
 
+// time complexity: O(n) here, `n` is the number of characters in the string
 void reverseString(char *str) {
-    int lenght = 0;
+    int length = 0;
 
     for(int i = 0; str[i] != '\0'; i++)
-        lenght++;
+        length++;
 
-    int st = 0, en = lenght - 1;
+    int st = 0, en = length - 1;
     while(st < en) {
         char temp = str[st];
         str[st] = str[en];

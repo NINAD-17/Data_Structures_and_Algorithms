@@ -10,15 +10,16 @@ void capitalizeStr(char *str) {
 }
 
 int findLength(char *str) {
-    int lenght = 0;
+    int length = 0;
 
     for(int i = 0; str[i] != '\0'; i++)
-        lenght++;
+        length++;
     
-    return lenght;
+    return length;
 }
 
 // Problem: Don't consider white spaces and special symbols
+// Time complexity: O(n)
 bool isPalindrome2(char *str) {
     int st = 0, en = findLength(str) - 1;
     while(st < en) {
@@ -36,12 +37,13 @@ bool isPalindrome2(char *str) {
     return true;
 }
 
+// time complexity: O(n)
 bool isPalindrome(char *str) {
-    int lenght = findLength(str);
+    int length = findLength(str);
 
     capitalizeStr(str);
     cout << str << endl;
-    int st = 0, en = lenght - 1;
+    int st = 0, en = length - 1;
     while(st < en) {
         if(str[st] == str[en])
             st++, en--;

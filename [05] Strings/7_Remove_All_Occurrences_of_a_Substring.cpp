@@ -3,6 +3,9 @@ using namespace std;
 
 // https://leetcode.com/problems/remove-all-occurrences-of-a-substring/
 
+
+
+
 /*******/
 // Solve this problem using stack for efficient solution -> Time complexity: O(n)
 /******/
@@ -21,11 +24,50 @@ void removeAllSubstrings(string &str, string part) {
     }
 }
 
+
+// Time complexity: O(n * m) here m is for O(lenOfsubstr).
+//                  - if m is small (like 3 or 4), this is basically O(n)
+//                  - If m can be as big as n, then worst case is O(n²)
+// Space complexity: O(n + m)
+//                  - temp is a new string of size m. That’s O(m) extra space.
+//                  - result grows to at most size n. That’s O(n).
+string removeSubstrings(string &str, string &substr) {
+    // using sliding window
+    int lenOfsubstr = substr.length();
+    string temp;
+    string result = "";
+    
+    int i = 0, j = 0;
+    while(i < str.length() - lenOfsubstr) {
+        temp = str.substr(i, lenOfsubstr); // window of substring // time complexity: O(lenOfsubstr) -> substr(i, lenOfsubstr) creates a new string by copying lenOfsubstr characters starting at position i
+        
+        // debug:
+        cout << temp << endl;
+
+        if(temp == substr) {
+            i += lenOfsubstr;
+            continue;
+        } else {
+            result += str[i];
+            i++;
+        }
+    }
+
+    while(i < str.length()) {
+        result += str[i++];
+    }
+    
+    str = result;
+    return str;
+}
+
 int main() {
     string str = "daabcbaabcbc", part = "abc";
 
-    removeAllSubstrings(str, part);
-    cout << str << endl;
+    // removeAllSubstrings(str, part);
+    // cout << str << endl;
 
+    removeSubstrings(str, part);
+    cout << str << endl;
     return 0;
 }
