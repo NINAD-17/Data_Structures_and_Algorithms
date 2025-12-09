@@ -10,10 +10,13 @@ Node* getMiddleOfLL_2(Node* &head) {
     // empty linked list || only one node
     if(head == NULL || head -> next == NULL) return head;
 
+    // only two nodes
+    if(head -> next -> next == NULL) return head -> next;
+
     Node* slow = head;
     Node* fast = head -> next;
 
-    while(fast != NULL && fast -> next != NULL) {
+    while(fast != NULL) {
         fast = fast -> next;
         if(fast != NULL) 
             fast = fast -> next;
@@ -46,6 +49,7 @@ int main() {
     insertAtTail(head, tail, 40);
     insertAtTail(head, tail, 50);
     insertAtTail(head, tail, 60);
+    insertAtTail(head, tail, 70);
     printLL(head);
 
     cout << "middle node of linked list is node with data " << getMiddleOfLL(head) -> data << endl;

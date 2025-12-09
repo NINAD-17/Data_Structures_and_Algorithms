@@ -37,8 +37,8 @@ bool isCircularUsingMap(Node* &tail) {
     Node* tempNode = tail -> next;
     map<Node*, bool> isVisited;
     while(tempNode != NULL && isVisited[tempNode] != true) {
-        tempNode = tempNode -> next;
         isVisited[tempNode] = true;
+        tempNode = tempNode -> next;
     }
 
     if(isVisited[tempNode])
@@ -48,7 +48,7 @@ bool isCircularUsingMap(Node* &tail) {
 }
 
 // singular linkedlist's print function
-void printLLL(Node* &head) { // We're passing it by reference to not create another node for head (for efficiency)
+void printSinglyLL(Node* &head) { // We're passing it by reference to not create another node for head (for efficiency)
     if(head == NULL) {
         cout << "linked list is empty or not exist :(" << endl;
         cout << "head node: " << head << endl << endl;
@@ -76,17 +76,19 @@ int main() {
     insertNode(tail, 8, 9);
     insertNode(tail, 9, 10);
     
-    // to check is the code is correct or not make it singly linkedlist
-    // tail -> next = NULL;
-    // printLLL(tail);
 
     printLL(tail); // circular linkedlist's printLL function
 
     // is it circular
     if(isCircularUsingMap(tail))
-        cout << "it's a circular linked list" << endl;
+        cout << "it's a circular linked list" << endl << endl;
     else
-        cout << "it's not a circular linked list" << endl;
+        cout << "it's not a circular linked list" << endl << endl;
+
+    
+    // To check if the code is incorrect or not, make it a singly linked list
+    tail -> next = NULL;
+    printSinglyLL(tail);
 
     return 0;
 }

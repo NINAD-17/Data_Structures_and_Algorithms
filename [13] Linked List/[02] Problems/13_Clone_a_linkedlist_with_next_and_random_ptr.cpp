@@ -80,7 +80,7 @@ Node* copyList(Node* &head) {
         tempNode = tempNode -> next;
     }
 
-    // step 2: create a map
+    // step 2: create a map (Read the reason: why we use map, in README.md)
     unordered_map<Node*, Node*> oldToNewNode;
 
     Node* originalNode = head;

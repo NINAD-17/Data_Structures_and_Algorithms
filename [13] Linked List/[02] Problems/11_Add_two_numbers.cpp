@@ -3,8 +3,8 @@
 using namespace std;
 
 // ADD 2 NUMBERS REPRESENTED BY LINKED LIST
-// time complexity:
-// space complexity:
+// time complexity: O(m + n)
+// space complexity: O(m + n)
 
 // --- 1. by reversing the linked list ---
 Node* revList(Node* &head) {

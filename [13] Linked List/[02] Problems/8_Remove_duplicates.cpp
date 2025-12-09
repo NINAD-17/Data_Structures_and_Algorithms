@@ -38,7 +38,7 @@ void removeDuplicates(Node* &head) {
 // time complexity: O(n)
 // space complexity: O(n)
 void removeDuplicates_mp(Node* &head) {
-    if(head == NULL && head -> next == NULL) return;
+    if(head == NULL || head -> next == NULL) return;
 
     map<int, bool> alreadyExist;
     Node* prev = NULL;

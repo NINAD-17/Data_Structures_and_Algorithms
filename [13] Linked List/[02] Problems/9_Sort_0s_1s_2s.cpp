@@ -41,7 +41,7 @@ void sort012(Node* &head) {
 
 // ----- 2. by making separate linkedlist for 3 elements and merging it -----
 // time complexity: O(n)
-// space complexity: O(1)
+// space complexity: O(n)
 
 /* // this is the function for our code written in "lib/singly_linkedlist.cpp"
    // with this logic you don't need to make dummy nodes. (shown by youtube video)

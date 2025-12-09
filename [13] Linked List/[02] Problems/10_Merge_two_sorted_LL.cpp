@@ -3,8 +3,11 @@
 using namespace std;
 
 // MERGE TWO SORTED LINKED LIST
-// time complexity: O(n)
+// time complexity: O(n + m)
 // space complexity: O(1)
+
+// merge2SortedLL is more complex, sortTwoLists is verbose and pointer heavy. mergeTwoSortedLL3 is simplest.
+
 
 // ----- 1. my method -------
 // see the image from readme.md file - contain dry run for this code.
@@ -61,18 +64,24 @@ Node* solve(Node* first, Node* second) {
     Node* next2 = NULL;
 
     while(next1 != NULL && curr2 != NULL) {
+        // if element from list-2 can fit in between curr1 and next1 element then add curr2 element in between
+        // it's like curr1 <= curr2 <= next1
         if((curr2 -> data >= curr1 -> data) && (curr2 -> data <= next1 -> data)) {
-            next2 = curr2 -> next;
+            
+            next2 = curr2 -> next; // store next element of list 2 (for reference) so that we can add curr2 to list 1 without loosing list 2's access
             curr1 -> next = curr2;
             curr2 -> next = next1;
-            curr1 = curr2;
-            curr2 = next2;
+            
+            curr1 = curr2; // now curr1 will shift to next element which is now curr2 (curr2 is now in list-1 so it's next element of curr1)
+            curr2 = next2; // get access to list2 using next2.
+
         } else {
+            // curr2 is not fitting in between curr1 and next1
             curr1 = next1;
             next1 = next1 -> next;
 
-            if(next1 == NULL) {
-                curr1 -> next = curr2;
+            if(next1 == NULL) { // if list-1 (curr1 list) ended but list-2 (curr2 list) still has some elements
+                curr1 -> next = curr2; // attach remaining list 2 to the end of list 1.
                 return first;
             } 
         }
