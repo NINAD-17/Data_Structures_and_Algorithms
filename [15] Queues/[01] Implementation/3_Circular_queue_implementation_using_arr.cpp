@@ -86,8 +86,12 @@ void printQueue(CircularQueue &q) {
     }
 
     cout << "\nqueue: (front) ";
-    for(int i = q.qFront; i <= q.qRear; i++) // i < q.qrear because the rear is always pointing towards last element's next place
+    int i = q.qFront;
+    while(true) {
         cout << q.arr[i] << " -> ";
+        if(i == q.qRear) break;
+        i = (i + 1) % q.size; // wrap around
+    }
     cout << "(rear)" << endl;
 }
 
@@ -104,24 +108,19 @@ int main() {
     q.enqueue(7);
 
     printQueue(q);
+    // (front) 1 -> 2 -> 3 -> 4 -> 5 (rear)
 
     q.dequeue();
-    printQueue(q);
-
+    q.dequeue();
     q.dequeue();
     printQueue(q);
+    //  -1 -> -1 -> -1 -> (front) 4 -> 5 (rear)
 
-    q.dequeue();
+    q.enqueue(6);
+    q.enqueue(7);
     printQueue(q);
-
-    q.dequeue();
-    printQueue(q);
-
-    q.dequeue();
-    printQueue(q);
-
-    q.dequeue();
-    printQueue(q);
+    //  6 -> 7 (rear) -> -1 -> (front) 4 -> 5
+    //  Front to Rear is 4 -> 5 -> 6 -> 7 and their is 1 place is empty
 
     return 0;
 }

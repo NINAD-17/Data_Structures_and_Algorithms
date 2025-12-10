@@ -127,68 +127,78 @@ class Deque {
 };
 
 void printDeque(Deque &dq) {
+    cout << "\nArray state: ";
+    for(int i = 0; i < dq.size; i++) {
+        cout << dq.arr[i] << " ";
+    }
+    cout << "(end)\n";
+
     if(dq.front == -1) {
         cout << "deque is empty\n" << endl;
         return;
     }
 
-    cout << "printing deque: ";
-
+    cout << "Logical deque: (front) ";
     int i = dq.front;
-
-    do {
+    while(true) {
         cout << dq.arr[i] << " ";
+        if(i == dq.rear) break;
         i = (i + 1) % dq.size;
-    } while(i != ((dq.rear + 1) % dq.size));
-
-    cout << endl << endl;
+    }
+    cout << "(rear)\n\n";
 }
 
 int main() {
-
     Deque dq(6);
 
+    // Case 1: Push at rear
     dq.push_rear(2);
     dq.push_rear(5);
+    printDeque(dq);
+    // Array: 2 5 _ _ _ _ (end)
+    // Logical: (front) 2 -> 5 (rear)
+
+    // Case 2: Push at front
     dq.push_front(1);
     dq.push_front(3);
+    printDeque(dq);
+    // Array: 2 5 _ _ 3 1 (end)
+    // Logical: (front) 3 -> 1 -> 2 -> 5 (rear)
+
+    // Case 3: Fill completely
     dq.push_front(4);
     dq.push_front(6);
+    printDeque(dq);
+    // Array: 2 5 6 4 3 1
+    // Logical: (front) 6 -> 4 -> 3 -> 1 -> 2 -> 5 (rear)
+
+    // Case 4: Overflow attempt
     dq.push_front(1);
-    dq.push_front(2);
+    dq.push_front(2); // should print "deque is full"
+    printDeque(dq);
 
-    cout << "front: " << dq.getFront() << endl;
-    cout << "rear: " << dq.getrear() << endl;
+    // Case 5: Pop from rear
+    dq.pop_rear();
     printDeque(dq);
 
     dq.pop_rear();
-    cout << "front: " << dq.getFront() << endl;
-    cout << "rear: " << dq.getrear() << endl;
     printDeque(dq);
 
-    dq.pop_rear();
-    cout << "front: " << dq.getFront() << endl;
-    cout << "rear: " << dq.getrear() << endl;
+    // Case 6: Pop from front
+    dq.pop_front();
     printDeque(dq);
 
     dq.pop_front();
-    cout << "front: " << dq.getFront() << endl;
-    cout << "rear: " << dq.getrear() << endl;
     printDeque(dq);
 
-    dq.pop_front();
-    cout << "front: " << dq.getFront() << endl;
-    cout << "rear: " << dq.getrear() << endl;
+    // Case 7: Mix pops until empty
+    dq.pop_rear();
     printDeque(dq);
 
     dq.pop_rear();
-    cout << "front: " << dq.getFront() << endl;
-    cout << "rear: " << dq.getrear() << endl;
     printDeque(dq);
 
-    dq.pop_rear();
-    cout << "front: " << dq.getFront() << endl;
-    cout << "rear: " << dq.getrear() << endl;
+    dq.pop_front(); // should show empty
     printDeque(dq);
 
     return 0;

@@ -78,22 +78,29 @@ class OutputRestrictedQueue {
 };
 
 void printQueue(OutputRestrictedQueue &q) {
+    cout << "\nArray state: ";
+    for(int i = 0; i < q.size; i++) {
+        cout << q.arr[i] << " ";
+    }
+    cout << "(end)" << endl;
+
     if(q.qFront == -1) {
         cout << "queue is empty" << endl;
         return;
     }
 
-    int i = q.qFront; // it will start from current front point and not 0 after that it will print elements inserted by equeue_rear()
-    do {
+    cout << "Logical queue: (front) ";
+    int i = q.qFront;
+    while(true) {
         cout << q.arr[i] << " ";
+        if(i == q.qRear) break;
         i = (i + 1) % q.size;
-    } while(i != (q.qRear + 1) % q.size || i == q.qRear);
-    cout << endl;
+    }
+    cout << "(rear)" << endl;
 }
 
 
 int main() {
-
     OutputRestrictedQueue q(6);
 
     q.enqueue_front(1);
@@ -102,8 +109,30 @@ int main() {
     q.enqueue_rear(4);
     q.enqueue_front(5);
     q.enqueue_rear(6);
-
     printQueue(q);
+    // Array: 5 2 1 3 4 6 (end)
+    // Logical: (front) 5 -> 2 -> 1 -> 3 -> 4 -> 6 (rear)
+
+    q.dequeue();
+    printQueue(q);
+    // Array: -1 2 1 3 4 6 (end)
+    // Logical: (front) 2 -> 1 -> 3 -> 4 -> 6 (rear)
+
+    q.dequeue();
+    printQueue(q);
+    // Array: -1 -1 1 3 4 6 (end)
+    // Logical: (front) 1 -> 3 -> 4 -> 6 (rear)
+
+    q.enqueue_front(7);
+    q.enqueue_front(8);
+    printQueue(q);
+    // Array: 1 3 4 6 8 7 (end)
+    // Logical: (front) 8 -> 7 -> 1 -> 3 -> 4 -> 6 (rear)
+
+    q.dequeue();
+    printQueue(q);
+    // Array: 1 3 4 6 -1 7 (end)
+    // Logical: (front) 7 -> 1 -> 3 -> 4 -> 6 (rear)
 
     return 0;
 }

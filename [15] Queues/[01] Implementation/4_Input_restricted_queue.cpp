@@ -89,13 +89,16 @@ void printQueue(InputRestrictedQueue &q) {
     }
 
     cout << "\nqueue: (front) ";
-    for(int i = q.qFront; i <= q.qRear; i++) // i < q.qrear because the rear is always pointing towards last element's next place
+    int i = q.qFront;
+    while(true) {
         cout << q.arr[i] << " -> ";
+        if(i == q.qRear) break;          // stop when rear is reached
+        i = (i + 1) % q.size;            // wrap around
+    }
     cout << "(rear)" << endl;
 }
 
 int main() {
-
     InputRestrictedQueue q(5);
 
     q.enqueue(1);
@@ -103,24 +106,42 @@ int main() {
     q.enqueue(3);
     q.enqueue(4);
     q.enqueue(5);
+    printQueue(q);
+    // Array: 1 -> 2 -> 3 -> 4 -> 5 -> (end)
+    // Logical: (front) 1 -> 2 -> 3 -> 4 -> 5 -> (rear)
+
+    q.dequeue_front();
+    q.dequeue_front();
+    printQueue(q);
+    // Array: -1 -> -1 -> 3 -> 4 -> 5 -> (end)
+    // Logical: (front) 3 -> 4 -> 5 -> (rear)
+
     q.enqueue(6);
-
+    q.enqueue(7);
     printQueue(q);
+    // Array: 6 -> 7 -> 3 -> 4 -> 5 -> (end)
+    // Logical: (front) 3 -> 4 -> 5 -> 6 -> 7 -> (rear)
+
+    q.dequeue_rear();
+    printQueue(q);
+    // Array: 6 -> -1 -> 3 -> 4 -> 5 -> (end)
+    // Logical: (front) 3 -> 4 -> 5 -> 6 -> (rear)
 
     q.dequeue_front();
     printQueue(q);
+    // Array: 6 -> -1 -> -1 -> 4 -> 5 -> (end)
+    // Logical: (front) 4 -> 5 -> 6 -> (rear)
 
     q.dequeue_rear();
     printQueue(q);
+    // Array: -1 -> -1 -> -1 -> 4 -> 5 -> (end)
+    // Logical: (front) 4 -> 5 -> (rear)
 
     q.dequeue_front();
+    q.dequeue_front();
     printQueue(q);
-
-    q.dequeue_rear();
-    printQueue(q);
-
-    q.dequeue_rear();
-    printQueue(q);
+    // Array: -1 -> -1 -> -1 -> -1 -> -1 -> (end)
+    // queue is empty
 
     return 0;
 }

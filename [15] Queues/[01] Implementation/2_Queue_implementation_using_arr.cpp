@@ -58,11 +58,11 @@ class Queue {
                 cout << "queue is empty" << endl;
             else {
                 int i = 0;
-                while(i < qrear) {
+                while(i < qrear - 1) {
                     arr[i] = arr[i + 1];
                     i++;
                 }
-                arr[i] = -1;
+                arr[i] = -1; // not needed
                 // qrear = i - 1;
                 qrear--;
             }
