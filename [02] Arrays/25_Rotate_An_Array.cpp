@@ -1,8 +1,35 @@
 #include <iostream>
 using namespace std;
 
-// Time Complexity: O(n)
+// In-place code: Without any extra space
+// Time: O(n)
+// Space: O(1)
+void reverseArr(int *arr, int st, int en) {
+    while(st < en)
+        swap(arr[st++], arr[en--]);
+}
 
+// Detailed explaination is available on README.md
+void rotateInPlace(int *arr, int n, int rotateBy) {
+    if(n <= 1) return;
+
+    rotateBy = (((rotateBy % n) + n) % n);
+
+    if(rotateBy == 0) return;
+
+    // * Right Rotation (rotate from right side)
+    // 1. Reverse whole array
+    reverseArr(arr, 0, n - 1);
+
+    // 2. Reverse first k (rotateBy) elements
+    reverseArr(arr, 0, rotateBy - 1);
+
+    // 3. Reverse remaining n - k (rotateBy) elements
+    reverseArr(arr, rotateBy, n - 1);
+}
+
+// Time Complexity: O(n)
+// auxillary space = O(1) but if we consider output space then it's O(n)
 void rotateArr(int *arr, int n, int rotateBy, int *ans) {
     for(int i = 0; i < n; i++)
         ans[(i + rotateBy) % n] = arr[i]; // Formula
@@ -26,6 +53,16 @@ int main() {
 
     cout << "After Rotation: ";
     printArr(ans, n);
+
+    cout << endl << "Rotate Inplace" << endl;
+    rotateBy = 2;
+    rotateInPlace(arr, n, rotateBy);
+    printArr(arr, n);
+
+    cout << "Revert rotation using by taking rotateBy as negetive number (left rotation)" << endl;
+    rotateBy = -2;
+    rotateInPlace(arr, n, rotateBy);
+    printArr(arr, n);
 
     return 0;
 }

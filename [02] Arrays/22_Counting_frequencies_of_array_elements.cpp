@@ -5,16 +5,21 @@
 using namespace std;
 
 // Using Binary Search: Time Complexity: O(n * log(n))
+// Explaination of following code (lower and upper bound) is in README.md
 void countFreq_binSrch(int *arr, int n) {
     sort(arr, arr + n);
 
     for(int i = 0; i < n; i++) {
         int firstIndex = lower_bound(arr, arr + n, arr[i]) - arr;
-        int lastIndex = upper_bound(arr, arr + n, arr[i]) - arr - 1;
+        cout << "Lower bound: " << lower_bound(arr, arr + n, arr[i]) << "\tFirst index: " << firstIndex << endl;
+
+        int lastIndex = upper_bound(arr, arr + n, arr[i]) - arr - 1; // gives last position of x (here element arr[i]) + 1 position means next position. So we'll need to substract 1 from it.
+        cout << "Upper bound: " << upper_bound(arr, arr + n, arr[i]) << "\tLast index: " << lastIndex << endl;
+
         i = lastIndex;
 
         int freq = (lastIndex - firstIndex) + 1;
-        cout << arr[i] << " ---> " << freq << endl;
+        cout << arr[i] << " ---> " << freq << endl << endl;
     }
 }
 

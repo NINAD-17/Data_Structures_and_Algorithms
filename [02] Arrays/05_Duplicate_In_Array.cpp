@@ -14,7 +14,8 @@ using namespace std;
 int findDuplicate_unMap(int *arr, int size) {
     unordered_map<int, int> freq;
     for(int i = 0; i < size; i++) {
-        if(freq.count(arr[i]) > 0)
+        cout << freq.count(arr[i]) << endl;
+        if(freq.count(arr[i]) > 0) // freq.count check existence (if exist it'll return 1 else 0), no insertion like freq[arr[i]]
             return arr[i];
         freq[arr[i]]++;
     }
@@ -72,7 +73,7 @@ int main() {
     cout << "Enter " << size << " array elements: ";
     takeInputFromUser(arr, size);
 
-    int duplicateElement = findDuplicate2(arr, size);
+    int duplicateElement = findDuplicate_unMap(arr, size);
     if(duplicateElement == 0 /* INT_MIN for findDuplicate() instead 0 */)
         cout << "No duplicate element is found" << endl;
     else    

@@ -2,6 +2,8 @@
 #include <algorithm>
 using namespace std;
 
+// Time complexity: O(n + m)
+// Space complexity: O(1)
 int addNumbers(int *num1, int n, int *num2, int m, int *ans) {
     int i = n - 1, j = m - 1, k = 0, carry = 0;
 
@@ -38,7 +40,9 @@ int addNumbers(int *num1, int n, int *num2, int m, int *ans) {
 }
 
 int addNumberArr(int *num1, int n, int *num2, int m, int *ans) {
-    int i = n - 1, j = m - 1, k = max(n, m) + 1, carry = 0;
+    int i = n - 1, j = m - 1;
+    int k = max(n, m); // last index for result
+    int carry = 0;
 
     while(i >= 0 || j >= 0 || carry) {
         int sum = carry;
@@ -53,7 +57,7 @@ int addNumberArr(int *num1, int n, int *num2, int m, int *ans) {
         carry = sum / 10;
     }
 
-    return k;
+    return k + 1; // At the end, k points just before the first valid digit. so add 1 to it.
 } 
 
 void printNum(int *num, int n) {
@@ -85,6 +89,10 @@ int main() {
     int sizeOfAns = addNumbers(num1, num1Size, num2, num2Size, ans);
     cout << "Addition of both numbers is ";
     printNum(ans, sizeOfAns);
+
+    int startingIndex = addNumberArr(num1, num1Size, num2, num2Size, ans);
+    cout << "Addition of both numbers is ";
+    printNum(ans + startingIndex, max(num1Size, num2Size) + 1 - startingIndex); // start from ans + startingIndex means if the returned value is 0 then start from 0the index and if it's 1 then arr + 1 th index. If the starting index is 0 then it'll have max(a, b) elements else max(a, b) + 1
 
     return 0;
 }

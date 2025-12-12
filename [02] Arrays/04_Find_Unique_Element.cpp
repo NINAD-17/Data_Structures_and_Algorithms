@@ -33,7 +33,7 @@ int findUniqueElement(int *arr, int size) {
 }
 
 
-// Time complexity: O(n)
+// Time complexity: O(n^2)
 // Space complexity: O(1)
 int findUniqueElementNested(int *arr, int size) {
     for(int i = 0; i < size; i++) {

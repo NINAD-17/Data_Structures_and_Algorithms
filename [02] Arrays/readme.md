@@ -108,7 +108,7 @@ Explaination:
 You've to allocate the book to m students such that **the maximum number of pages assigned to a student is minimum.**
 
 Example: <br>
-<img src="image.png" width=350px height=300px />
+<img src="book_allocation.png" width=350px height=300px />
 <br>
 Here our answer is 60 because it's minimum.
 
@@ -122,6 +122,87 @@ Example: `num % 10` ---> answer will be in range of `(0 ... 9)`
 Shift ith term in cyclic way using following formula -
 **Formula:** - **`arr[(i + k) % n] = arr[i]`** ... where, i = index, k = rotate by num, n = size of array 
 
+### In‑place Rotation Using Reversal Algorithm
+- **Right rotation by k**:
+  - Reverse the whole array.
+  - Reverse the first k elements.
+  - Reverse the remaining n−k elements (indices k … n−1).
+
+- **Left rotation by k**:
+  - Reverse the first k elements.
+  - Reverse the remaining n−k elements.
+  - Reverse the whole array.
+
+Example: `Array: [1,2,3,4,5,6,7,8,9,10], n = 10, k = 2` (rotate right)
+- Reverse all → `[10,9,8,7,6,5,4,3,2,1]`
+- Reverse first k=2 → `[9,10,8,7,6,5,4,3,2,1]`
+- Reverse remaining n−k = 8 elements (indices 2..9) → `[9,10,1,2,3,4,5,6,7,8]`
+
+#### Why use k = ((k % n) + n) % n;
+This line normalizes `k` so it always falls in the range `[0, n-1]`.
+- `k % n` handles cases where `k > n`. 
+
+  Example: rotating by 12 on an array of size 5 is the same as rotating by `12 % 5 = 2`.
+
+- `+ n` and then `% n` handles negative `k`. 
+  
+  Example: rotating right by `-2` is the same as rotating left by `2`. 
+  
+  Without this normalization, negative values would break the index math.
+
+So this formula makes your function robust for:
+  - Large k values (`k > n`)
+  - Negative k values (interpreted as left rotation)
+
+**Step Breakdown**
+1. `k % n`
+  - Reduces k into range [-(n-1), n-1].
+  - Keeps sign (negative stays negative).
+
+2. `+ n`
+  - Shifts negative results into positive range.
+  - Example: `-2 % 5 = -2 → -2 + 5 = 3`
+
+3. `% n` (final clamp)
+  - Ensures result is strictly within `[0, n-1]`.
+  - Prevents out-of-range cases like n itself.
+  - Example: `(10 % 5 + 5) = 5 → 5 % 5 = 0`.
+
+**Example**:
+- Case 1: `k = 2` (right rotation)
+  - Normalization: `(2 % 5 + 5) % 5 = 2`.
+  - Rotate right by `2 → [4,5,1,2,3]`.
+
+- Case 2: `k = -2` (left rotation)
+  - Normalization: `(-2 % 5 + 5) % 5`.
+    - `-2 % 5 = -2` (C++ keeps the sign).
+    - `-2 + 5 = 3`.
+    - `3 % 5 = 3`.
+  - So `k = 3`.
+  - Rotate right by 3 → `[3,4,5,1,2]`.
+  - Which is exactly the same as left rotation by 2.
+
+## Peak index in mountain
+### Why en = mid instead of en = mid - 1
+
+**The loop invariant**
+
+We maintain that the peak is always between st and en.
+
+  - If arr[mid] < arr[mid+1], we know peak is strictly to the right → st = mid+1.
+
+  - Else (arr[mid] >= arr[mid+1]), the peak could be at mid itself or to the left. So we set en = mid, not mid-1.
+
+**Example walk‑through**
+Array: [1,3,5,7,6,4,2]
+
+- st=0, en=6, mid=3 → arr[3]=7, arr[4]=6 
+  
+  Condition: arr[mid] >= arr[mid+1] → peak could be at mid=3. 
+  
+  If we did en = mid-1, we’d throw away index 3 (the actual peak). 
+  
+  By doing en = mid, we keep it in the search range.
 
 ## Pascal Triangle
 
@@ -132,3 +213,138 @@ temp[j] = ans[i - 1][j - 1] + ans[i - 1][j];
 ```
 Here, temp is a current row and `temp[j]` is current position. To add value in it we need to calculate sum of previous row's `j`th position and `j - 1`th position.
 `ans` is the main vector which stores a vector. So we're going to previous vector by `ans[i - 1]` and access particular position by `ans[i - 1][j]` jth element.
+
+## Map
+
+```cpp
+    for(int j = 0; j < m; j++) {
+        if(mp[arr2[j]] > 0) {
+            intersection[k++] = arr2[j];
+            mp[arr2[j]]--;
+        }
+    }
+```
+
+- What mp[arr2[j]] does?
+  - unordered_map::operator[] has two roles:
+    - **Read**: If the key exists, it returns a reference to its value (so you can read or modify).
+    - **Insert**: If the key does not exist, it inserts the key with a default‑initialized value (0 for int) and then returns a reference to that.
+
+    Example:
+    ```
+    mp[5] = 2;        // inserts key 5 with value 2
+    mp[5]++;          // if 5 not present, inserts with 0, then increments to 1
+    cout << mp[5];    // if 5 not present, inserts with 0, then prints 0
+    ```
+
+- Why your code works without `.count`
+  ```cpp
+  if (mp[arr2[j]] > 0) {
+      intersection[k++] = arr2[j];
+      mp[arr2[j]]--;
+  }
+  ```
+  - When you built the map from `arr1`, every element got a positive frequency (>=1).
+
+  - So when you check `mp[arr2[j]] > 0`, you’re reading the frequency.
+
+  - If `arr2[j]` wasn’t in `arr1`, then operator[] inserts it with 0. The condition fails, so nothing happens.
+
+  - That’s why you don’t need `.count` here — the > 0 check naturally handles both cases.
+
+  - If you only want to know **“does this key exist?” → use .count**.
+
+  - If you want to r**ead/update frequency → use operator[]**.
+
+## Triplet Sum
+**Example 1: Array = `{0, 3, 2, 4, 1}`, reqSum = 5**
+
+We want triplets that sum to 5.
+
+**Outer loop**: `i = 0` → `arr[i] = 0`
+- `currSum = 5 - 0 = 5`
+- Inner loop starts with `j = 1` → `arr[j] = 3`
+  - target = 5 - 3 = 2
+  - seen is empty → no match
+  - Insert 3 into `seen`
+
+- `j = 2 → arr[j] = 2`
+  - `target = 5 - 2 = 3`
+  - Is 3 in `seen`? Yes → triplet found: `(0, 2, 3)`
+
+- `j = 3 → arr[j] = 4`
+  - `target = 5 - 4 = 1`
+  - Not in `seen` → insert 4
+
+- `j = 4` → `arr[j] = 1`
+  - `target = 5 - 1 = 4`
+  - Is 4 in `seen`? Yes → triplet found: `(0, 1, 4)`
+
+**Output**: `(0,2,3)` and `(0,1,4)`
+
+## Counting frequencies of Array Elements
+### What lower_bound and upper_bound return
+- Both functions return an iterator (in your case, a raw pointer because you’re using a plain array).
+
+- That iterator points to the position in the sorted range where the value fits.
+
+Example: 
+```cpp
+int arr[] = {5, 10, 10, 10, 20, 20, 20, 20};
+auto it = lower_bound(arr, arr+n, 10);
+```
+Here `it` is a pointer to `arr[1]`.
+
+### Why you saw an address
+When you print lower_bound(...) directly:
+```cpp
+cout << lower_bound(arr, arr+n, arr[i]);
+```
+You’re printing the pointer value (the memory address). That’s why you saw `0x61fef4`.
+
+### How subtracting `arr` gives an index
+In C++, pointer arithmetic works like this:
+
+- `lower_bound(...)` returns a pointer to some element inside `arr`.
+
+- Subtracting `arr` (which itself is a pointer to the first element) gives the offset in terms of elements.
+
+Example:
+```cpp
+int* p = lower_bound(arr, arr+n, 10); // points to arr[1]
+int index = p - arr;                  // (arr+1) - arr = 1
+```
+So `p - arr` is the index.
+
+### Why `- arr - 1` for upper bound
+- `lower_bound(arr, arr+n, x)` → first index where x could be inserted (i.e. first occurrence of x).
+
+- `upper_bound(arr, arr+n, x)` → first index where a value greater than x could be inserted (i.e. one past the last occurrence of x).
+
+So:
+
+- `lower_bound(...) - arr` → gives the first index of `x`.
+
+- `upper_bound(...) - arr` → gives the index of the element after the last occurrence of `x`.
+
+- To get the actual last index of x, subtract 1:
+  ```cpp
+  int lastIndex = upper_bound(arr, arr+n, x) - arr - 1;
+  ```
+
+## Sort elements by frequency
+### What is a comparator?
+A comparator is a function that tells sort (or stable_sort) how to order two elements.
+
+- Normally, sort uses the < operator (ascending order).
+
+- If you want a custom order (like sort by frequency, or descending order), you pass a comparator function.
+
+The comparator must return true if the first argument should come before the second in the sorted order.
+
+### Your example with sort(vec.begin(), vec.end())
+- If you write just sort(vec.begin(), vec.end()), it will sort the vector using the default < operator.
+
+- For vector<pair<int,int>>, the default < compares first, then second (lexicographic order). Example: (2,2) < (5,2) because 2 < 5.
+
+- That means it sorts by element value, not by frequency.

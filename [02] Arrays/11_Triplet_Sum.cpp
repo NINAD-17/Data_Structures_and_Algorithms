@@ -1,14 +1,45 @@
 #include <iostream>
 #include <climits>
 #include <algorithm>
+#include <unordered_map>
 using namespace std;
 
 // Using hash tables is a more optimized way to solve this problem after you learn the concept of hash tables
-// ? Pending ---
+// Time: O(n^2)
+// Space: O(n) for hashmap
+void tripletSum_unordered_map(int *arr, int n, int reqSum, int *pairsArr) {
+    bool found = false;
+    int k = 0;
+
+    for(int i = 0; i < n; i++) {
+        unordered_map<int, bool> seen;
+        int currSum = reqSum - arr[i];
+
+        for(int j = i + 1; j < n; j++) {
+            int target = currSum - arr[j];
+
+            if(seen[target]) {
+                // cout << "Triplet found: " << arr[i] << ", " << arr[j] << ", " << target << endl;
+                pairsArr[k++] = arr[i];
+                pairsArr[k++] = arr[j];
+                pairsArr[k++] = target;
+
+                found = true;
+            }
+
+            seen[arr[j]] = true;
+        }
+    }
+
+    if(!found) {
+        cout << "No triplet found :(" << endl;
+    }
+}
 
 
 // We can optimize brute force approach by using two pointers approach
 // Time Complexity: O(n^2 + n log(n))
+// // Space (auxillary): O(log n)  // Sorts the array in-place (sort(arr, arr+n)), which in C++ STL uses O(log n) stack space for recursion.
 void tripletSum_twoPt(int *arr, int n, int reqSum, int *pairsArr) {
     int k = 0;
 
@@ -37,6 +68,7 @@ void tripletSum_twoPt(int *arr, int n, int reqSum, int *pairsArr) {
 
 // Brute Force Approach
 // Time Complexity: O(n^3)
+// Space (auxillary): O(1)
 void tripletSum(int *arr, int n, int sum, int *pairsArr) {
     int k = 0;
 
@@ -63,7 +95,22 @@ int main() {
 
     for(int i = 0; i < 10; i++) 
         pairsArr[i] = INT_MIN;
+
+    cout << "Using Brute Force: " << endl;
+    tripletSum(arr, n, reqSum, pairsArr);
+    if(pairsArr[0] == INT_MIN)
+        cout << "No pair found :(" << endl;
+    else {
+        int k = 1;
+        for(int i = 0; i < 10; i+=3) {
+            if(pairsArr[i] == INT_MIN)
+                break;
+            cout << "Pair-" << k++ << " -> " << pairsArr[i] << ", " << pairsArr[i + 1] << ", " << pairsArr[i + 2] << endl;
+        }
+    }
+    cout << endl;
     
+    cout << "Using two pointer: " << endl;
     tripletSum_twoPt(arr, n, reqSum, pairsArr);
     if(pairsArr[0] == INT_MIN)
         cout << "No pair found :(" << endl;
@@ -71,10 +118,25 @@ int main() {
         int k = 1;
         for(int i = 0; i < 10; i+=3) {
             if(pairsArr[i] == INT_MIN)
-                return 0;
+                break;
             cout << "Pair-" << k++ << " -> " << pairsArr[i] << ", " << pairsArr[i + 1] << ", " << pairsArr[i + 2] << endl;
         }
     }
+    cout << endl;
+
+    cout << "Using hashmap: " << endl;
+    tripletSum_unordered_map(arr, n, reqSum, pairsArr);
+    if(pairsArr[0] == INT_MIN)
+        cout << "No pair found :(" << endl;
+    else {
+        int k = 1;
+        for(int i = 0; i < 10; i+=3) {
+            if(pairsArr[i] == INT_MIN)
+                break;
+            cout << "Pair-" << k++ << " -> " << pairsArr[i] << ", " << pairsArr[i + 1] << ", " << pairsArr[i + 2] << endl;
+        }
+    }
+    cout << endl;
 
     cout << endl;
     return 0;

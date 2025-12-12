@@ -2,9 +2,9 @@
 using namespace std;
 
 // Example cases
-// 1.   1, 2, 3, 4, 5  1 count
-// 2.   3, 4, 5, 1, 2  1 count
-// 3.   3, 5, 7, 1, 6  here numbers aren't sorted & count of (arr[i - 1] > arr[i]) is greater than 1. So it's false
+// 1.   1, 2, 3, 4, 5  [1 count at (5 -> 1)]
+// 2.   3, 4, 5, 1, 2  [1 count at (5 -> 1)]
+// 3.   3, 5, 7, 1, 6  here numbers aren't sorted & count of (arr[i - 1] > arr[i]) is greater than 1. So it's false [2 count at (7 -> 1) & (6 -> 3)]
 
 bool isRotatedAndSorted(int *arr, int n) {
     int count = 0;

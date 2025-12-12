@@ -2,7 +2,7 @@
 #include <climits>
 using namespace std;
 
-// Here pivot is the smallest number is an array
+// Here pivot is the smallest number in an array
 int findPivotElement(int *arr, int n) {
     int st = 0, en = n - 1;
 

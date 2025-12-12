@@ -5,6 +5,7 @@ using namespace std;
 
 // Optimal solution using unordered map
 // Time complexity: O(n)
+// space complexity: O(n) auxillary
 void findAllDuplicatesUsingUnorderedMap(int *arr, int size, int *ansArr) {
     unordered_map<int, int> freq;
     int index = 0;
@@ -21,6 +22,7 @@ void findAllDuplicatesUsingUnorderedMap(int *arr, int size, int *ansArr) {
 
 // Brute force solution
 // Time complexity: O(n^2)
+// Space complexity: O(1) (auxillary space). But outspace is O(n) but we mainly talk about auxillary space only.
 void findAllDuplicates(int *arr, int size, int* ansArr) {
     int k = 0;
     for(int i = 0; i < size - 1; i++) {

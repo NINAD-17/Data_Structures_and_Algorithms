@@ -29,8 +29,11 @@ bool findOccurrences_unMap(int *arr, int size) {
     unordered_map<int, int> occ;
     for(auto it : freq) {
         occ[it.second]++;
-        if(occ[it.second] > 1) 
+        cout << "Occ: " << it.second << " -> " << "Freq: " << occ[it.second] << endl;
+        if(occ[it.second] > 1) {
+            cout << "Occ: " << it.second << " -> " << "Freq: " << occ[it.second] << endl;
             return false;
+        }
     }
 
     return true;
@@ -69,16 +72,22 @@ bool areUniqueWithOccurrences(int *arr, int size) {
 // Time Complexity: O(n^2)  ---- because the function uses two nested for loops to count the number of occurrences of each element in the input array and to check if the number of occurrences of each element is unique.
 // Space complexity: O(n) ----  because the function uses an additional occurrencesArr array of size n to store the number of occurrences of each element in the input array.
 bool isUniqueArrayByOccaurrences(int *arr, int size) {
-    int count = 0, k = 0, current = INT_MIN, tempSize = 0;
-    int occurrencesArr[100] = {0}, uniqueNo[100] = {0};
+    int uniqueNo[100] = {0}; // to store unique number (no duplicates)
+    int occurrencesArr[100] = {0}; // to store occurances count of those unique numbers
     
-    sort(arr, arr + size); // Example: 1, 2, 2, 2, 3, 3
+    int count = 0; // to count all occurances of unique number
+    int k = 0; // iterator for occurancesArr and uniqueNo array
+    int tempSize = 0; // all total unique elements (size of occrancesArr and uniqueNo array) 
+    int current = INT_MIN; // to skip already counted elements (optional - you can directly use i = j at last)
+    
+    // sort(arr, arr + size); // Example: 1, 2, 2, 2, 3, 3
 
     for(int i = 0; i < size; i++) {
         if(current == arr[i]) // Already counted that number's occurrences
             continue;
 
-        for(int j = i; j < size; j++) {
+        int j;
+        for(j = i; j < size; j++) {
             if(arr[i] == arr[j]) // count occurrences
                 count++;
             else    
@@ -89,6 +98,7 @@ bool isUniqueArrayByOccaurrences(int *arr, int size) {
         tempSize = k;
         count = 0;
         current = arr[i]; // update
+        // i = j; // if you don't want to use 'current' keyword you can directly update i with jth postion, so then iteration will run from j-th position (prevent unnecessary breaks for known number)
     }
 
     for(int i = 0; i < tempSize; i++) {
