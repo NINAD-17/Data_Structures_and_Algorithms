@@ -81,9 +81,9 @@ Above solution is already implemented and to use this we use 2D Arrays.
 
   - *A<sub>m × n</sub> × B<sub>n × p</sub> = C<sub>m × p</sub>*
 
-  - If matrix1 has m rows and n columns,
+  - If `matrix1` has `m` rows and `n` columns,
   
-  - And matrix2 has n rows and p columns,
+  - And `matrix2` has `n` rows and `p` columns,
   
   - Then the **result (ans) will have m rows and p columns**.
 
@@ -94,7 +94,7 @@ Above solution is already implemented and to use this we use 2D Arrays.
     ```
     Matrix A: [ a11  a12  a13 ]  |  Matrix B: [ b11  b12  b13  b14 ]
               [ a21  a22  a23 ]  |            [ b21  b22  b23  b24 ]
-                                |            [ b31  b32  b33  b34 ] 
+                                 |            [ b31  b32  b33  b34 ] 
     ```
 
     **Result: Matrix C(2 × 4)**
