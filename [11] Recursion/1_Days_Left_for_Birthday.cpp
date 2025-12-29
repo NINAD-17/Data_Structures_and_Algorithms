@@ -1,6 +1,12 @@
 #include <iostream> 
 using namespace std;
 
+// Time Complexity: O(n)
+//      - Per-call work: O(1)
+//      - Recurrence: T(n) = T(n−1) + O(1), with T(0) = O(1) → T(n) = O(n).
+// Space Complexity: O(n)
+//      - Each frame = O(1), depth = n → O(n)
+
 void birthdayTimer(int n) {
     // Base Case
     if(n == 0) {

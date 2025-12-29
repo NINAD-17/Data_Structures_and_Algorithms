@@ -1,6 +1,8 @@
 #include <iostream>
 using namespace std;
 
+// Recursive
+// Time: O(n^n)     Space: O(n)
 void bubbleSort_rec(int *arr, int size) {
     // base case
     if(size == 0 || size == 1)
@@ -21,6 +23,8 @@ void bubbleSort_rec(int *arr, int size) {
     bubbleSort_rec(arr, size - 1); // as the last element is sorted, we need to check only for size - 1
 }
 
+// Iterative
+// Time: O(n^n)     Space: O(1)
 void bubbleSort(int *arr, int size) {
     for(int i = 1; i < size; i++) {
         bool isSwapped = false;

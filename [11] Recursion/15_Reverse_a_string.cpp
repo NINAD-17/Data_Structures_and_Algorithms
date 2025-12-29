@@ -2,6 +2,7 @@
 using namespace std;
 
 // Using only one pointer
+// Time: O(n)   Space: O(n)
 void reverseString_rec_2(string &str, int i) {
     if(i == str.length()/2)
         return;
@@ -13,6 +14,7 @@ void reverseString_rec_2(string &str, int i) {
 }
 
 // Using two pointers (st and en)
+// Time: O(n)   Space: O(n)
 void reverseString_rec(string &str, int st, int en) {
     // Base Case
     if(st >= en)
@@ -24,6 +26,7 @@ void reverseString_rec(string &str, int st, int en) {
 }
 
 // Without recursion
+// Time: O(n)   Space: O(1)
 string reverseString(string str) {
     int st = 0, en = str.length() - 1;
     while(st <= en) 

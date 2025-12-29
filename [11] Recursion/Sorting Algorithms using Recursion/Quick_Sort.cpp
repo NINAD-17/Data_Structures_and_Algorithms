@@ -1,6 +1,10 @@
 #include <iostream>
 using namespace std;
 
+// Time complexity (best case): O(n log n) 
+// Space complexity (best case): O(log n)
+// Read explaination of time and space complexity from README.md
+
 int partition(int *arr, int st, int en) {
 
     // Decide pivot element

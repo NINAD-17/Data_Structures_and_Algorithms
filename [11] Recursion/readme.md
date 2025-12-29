@@ -5,8 +5,7 @@ Recursion is a powerful concept in computer science and programming. It is a met
 ## Understanding Recursion with an Example
 Consider the following simple example of a recursive function in C++:
 
-```
-cpp
+```cpp
 void solve(int n) {
     if (n == 0) return; // base case
     // some code here...
@@ -33,7 +32,58 @@ Depending on where the recursive relation appears in the function, recursion can
 ## Stack Overflow in Recursion
 Recursion uses an in-built stack to store recursive calls. Hence, it’s important to limit the number of recursive calls to avoid memory overflow. If the number of recursion calls exceeds the maximum permissible amount, it will exceed the recursion depth, leading to a condition called stack overflow.
 
-## Importance of Return Statement in Recursive Functions
+More information on Memory Allocation (You can also refer to `/[08] Memory Allocation/`)
+1. **Types of memory in a program**
+    - **Static (Global/Code segment)** → stores global variables, constants, compiled code.
+    - **Heap (Dynamic memory)** → large pool, managed manually (new, malloc, etc.), flexible size.
+    - **Stack** → automatically managed, stores:
+        - Function call frames
+        - Local variables
+        - Parameters
+        - Return addresses
+
+2. **Why stack memory is limited**
+    - The stack is fixed-size when the program starts.
+        - On most systems, it’s a few MB (e.g., 1 MB, 8 MB, sometimes configurable).
+    - The heap can grow much larger (hundreds of MB or GB), but the stack is kept small because:
+        - It must be fast (push/pop operations).
+        - It grows and shrinks predictably with function calls.
+        - Large stack sizes would risk colliding with the heap in memory layout.
+    So yes, stack memory is intentionally kept small.
+
+3. **Stack frames and overflow**
+    - Each function call creates a stack frame:
+        - Parameters
+        - Local variables
+        - Return address
+    - The size of a frame depends on the function:
+        - A simple function with a few `int` → small frame.
+        - A function with a huge local array (e.g., `int arr[1000000]`) → very large frame.
+
+    **Two ways stack overflow can happen:**
+    - **i. Too many recursive calls** → many frames stacked up.
+    - **ii. One frame too large** → a single function allocates a huge local variable, exceeding stack size.
+    It’s not only “too many functions” that cause overflow. A single function with a massive local allocation can also overflow the stack.
+
+4. **Example:**
+    ```cpp
+    void recurse(int n) {
+        int arr[1000000]; // ~4 MB local array
+        if(n > 0) recurse(n-1);
+    }
+    ```
+    - Even one call may overflow if stack size is 1 MB.
+    - Or, if stack size is 8 MB, a few recursive calls will overflow.
+
+5. **Why not just give stack more memory?**
+    - Stack is designed for **speed and predictability**.
+    - Heap is for **large, flexible allocations**.
+    - If you need big data structures → allocate on heap (`new`, `malloc`).
+    - If you need recursion → keep depth reasonable or convert to iterative.
+    
+
+## Importance of Return Statement in Recursive Functions 
+(For functions returning any value - not for `void`. In `void` no explicit return is required)
 While your code may work as expected without explicitly returning a value in all code paths for a function that is expected to return a value, it’s generally considered good practice to do so. This helps prevent potential bugs and makes your code easier to understand and maintain.
 
 For instance, consider an example where we check if an array is sorted or not using recursion. In this case, we don’t need to use the return keyword because the function will always terminate before coming back from the base case.
@@ -100,6 +150,8 @@ Note: Merge Sort is faster than Selection, Insersion and Bubble sort.
     - Bit manipulation
     <img src="subset-subsequence calc.jpg">
 
+    ![alt text](image-2.png)
+
 4. Phone keypad problem example
     <img src="phone_keypad_problem.jpg">
 
@@ -128,3 +180,113 @@ Note: Merge Sort is faster than Selection, Insersion and Bubble sort.
         - position to which rat is going should be 1 (open path)
         - position to which rat is going should be unvisited.
         - when function call returns, visited position should mark with false (not-visited). Because we've to find all posible paths.
+
+
+## Problems:
+### 1. Birthday Timer
+When you call a function: (Why we've not used any `return` statement?)
+- A stack frame is created for that call.
+
+- Local variables and parameters are stored there.
+- Control jumps into the function body.
+- When the function returns (either explicitly with return or implicitly at the end of the function), the stack frame is popped, and control goes back to the caller — specifically, to the line after the function call.
+
+```
+main()
+  → bT(5)
+       prints "5 days left"
+       → bT(4)
+            prints "4 days left"
+            → bT(3)
+                 prints "3 days left"
+                 → bT(2)
+                      prints "2 days left"
+                      → bT(1)
+                           prints "1 day left"
+                           → bT(0)
+                                prints "Happy Birthday!"
+                                return;   // base case
+```
+
+Now unwind:
+- bT(0) returns → control goes back to the line birthdayTimer(n - 1) inside bT(1).
+
+- But after that line, there’s nothing else in bT(1). So bT(1) ends and pops off.
+- Then control returns to bT(2) (to the line where it called bT(1)), sees nothing after it, ends.
+- Same for bT(3), bT(4), bT(5).
+- Finally back to main(), which ends after calling birthdayTimer.
+
+Each call pops off naturally after the recursive call returns, even without an explicit return;.
+
+### 2. Count ways to reach N-th Stair
+Each call to `countWays(n)` makes two recursive calls: → `countWays(n-1)` and `countWays(n-2)`.
+
+Recursion tree visualization (Let’s take n = 5 as an example):
+```
+countWays(5)
+ ├─ countWays(4)
+ │   ├─ countWays(3)
+ │   │   ├─ countWays(2)
+ │   │   │   ├─ countWays(1) → 1
+ │   │   │   └─ countWays(0) → 1
+ │   │   └─ countWays(1) → 1
+ │   └─ countWays(2)
+ │       ├─ countWays(1) → 1
+ │       └─ countWays(0) → 1
+ └─ countWays(3)
+     ├─ countWays(2)
+     │   ├─ countWays(1) → 1
+     │   └─ countWays(0) → 1
+     └─ countWays(1) → 1
+```
+
+Notice:
+- countWays(3) is computed twice.
+- countWays(2) is computed three times.
+- As n grows, the number of repeated calls explodes.
+
+Growth Pattern:
+- At each level, the number of calls doubles (roughly).
+- Depth of recursion = n.
+- Total calls ≈ 2^𝑛
+
+So the recurrence is: `T(n) = T(n - 1) + (T - 2) + 0(1)`
+This solves to `O(2^n)`.
+
+### 3. Subsets
+- Example: `arr[3] = {1, 2, 3}`
+    - Power Set is a set of all subsets.
+    - Power Set = `{}, {1}, {2}, {3}, {1, 2}, {2, 3}, {1, 3}, {1, 2, 3}`
+    - Power Set contains `2`<sup>n</sup> elements. So in our example, 2<sup>3</sup> = 8 elements
+
+#### i. Bit Manipulation Example
+**Bit shift operators**
+- **Left Shift** `<<`: moves bits to the left by k positions.
+    - Numeric effect: `x << k = x * 2`<sup>`k`</sup>
+    - Example:
+        - `1 << 0`: 1 stays 1 (binary “001” if we show 3 bits).
+        - `1 << 1`: 1 becomes 2 (binary “010”).
+        - `1 << 2`: 1 becomes 4 (binary “100”).
+- **Right Shift** `>>`: moves bits to the right by k positions.
+    - Numeric effect: x >> k = [x/2<sup>k</sup>]
+    - Example with x = 1:
+        - `1 >> 0`: 1
+        - `1 >> 1`: 0
+        - `1 >> 2`: 0
+
+**From the Problem**
+- **Why `(1 << size) = 2^size`**
+    - **Lead idea**: shifting 1 left by size sets exactly the size-th bit and yields 2<sup>size</sup>.
+    - **Examples**:
+        - (1 << 3) = 8 (1000 in binary)
+        - (1 << n) = 2^n
+
+- **What `(i & (1 << j)) != 0`checks**
+    - **Mask creation**: (1 << j) is a number with only the j-th bit set.
+        - For `j = 0,1,2` → masks are `001`, `010`, `100` (in 3-bit view).
+    - **AND test**: `i & (1 << j)` keeps only the j-th bit of i.
+        - If the j-th bit of i is 1, the result is nonzero → include `arr[j]`.
+        - If the j-th bit of i is 0, the result is 0 → exclude `arr[j]`.
+
+- **Mini table**: i from 0 to 7 with masks for j = 0,1,2
+    ![alt text](mini_table.png)

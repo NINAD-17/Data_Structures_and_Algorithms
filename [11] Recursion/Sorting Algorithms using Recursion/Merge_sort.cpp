@@ -8,6 +8,7 @@ using namespace std;
 // known for its efficiency and stability.
 
 // Time Complexity: O(n log n)
+// Space Complexity: O(n)
 void merge_2_sorted_arrays(int *arr, int st, int en) {
     int mid = st + (en - st) / 2;
 

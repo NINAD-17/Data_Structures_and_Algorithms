@@ -1,6 +1,8 @@
 #include <iostream>
 using namespace std;
 
+// Time: O(dest)
+// Space: O(dest)   // Depth of recursion is O(dest - src) ≈ O(dest)
 void reachHome(int src, int dest) {
     // Base Case
     if(src == dest) {

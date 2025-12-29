@@ -1,6 +1,8 @@
 #include <iostream>
 using namespace std;
 
+// Time complexity: O(n)    // Depth ≈ n/2.
+// Space complexity: O(n)
 bool isPalindrome_rec_2(string str, int i) {
     if(i >= str.length()/2)
         return true;
@@ -12,6 +14,8 @@ bool isPalindrome_rec_2(string str, int i) {
 }
 
 // Using recursion
+// Time complexity: O(n)    // Depth of recursion ≈ n/2
+// Space complexity: = O(n/2) = O(n)
 bool isPalindrome_rec(string str, int st, int en) {
     // Base Case
     if(st >= en)
@@ -24,6 +28,8 @@ bool isPalindrome_rec(string str, int st, int en) {
 }
 
 // Without using recursion
+// Time complexity: O(n)    // Loop runs for n/2 iterations so, O(n/2) = O(n)
+// Space complexity: O(1)
 bool isPalindrome(string str) {
     int st = 0, en = str.length() - 1;
 

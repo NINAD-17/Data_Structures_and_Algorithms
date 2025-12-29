@@ -2,6 +2,7 @@
 #include <vector>
 using namespace std;
 
+// Leetcode: https://leetcode.com/problems/subsets/description/
 // subset always contains 2^n elements. n is the total number of elements in an array.
 
 // --- recursion ---
@@ -30,7 +31,10 @@ vector<vector<int>> subsets(int *arr, int size) {
     return ans;
 }
 
-// --- bit manipulation ---
+// --- Bit Manipulation ---
+// Time complexity: O(n * 2^n)
+// Space complexity: O(n * 2^n)     If we exclude `ans` vector then it'll be O(n) only.
+
 // 0 means exclude and 1 means include
 vector<vector<int>> findSubsets(int *arr, int size) {
     vector<vector<int>> ans;

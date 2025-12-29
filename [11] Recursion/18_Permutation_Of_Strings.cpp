@@ -1,9 +1,13 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 // total possible permutations are n! where n is the size of arr => 3! = 6
 
+
+// Recursive Solution
+// Time: O(n * n!)      Space: O(n * n!)  You store all n! permutations, each of length n → O(n · n!).
 void solve(vector<int> arr, int size, vector<vector<int>> &ans, int index) {
     // Base Case
     if(index >= size) { 
@@ -24,6 +28,17 @@ vector<vector<int>> permute(vector<int> arr, int size) {
     int index = 0; 
 
     solve(arr, size, ans, index);
+    return ans;
+}
+
+// Iterative Solution
+// Time: O(n * n!)      Space: O(n * n!)
+vector<string> permute_iterative(string str) {
+    vector<string> ans;
+    sort(str.begin(), str.end()); // start with lexicographically smallest
+    do {
+        ans.push_back(str);
+    } while(next_permutation(str.begin(), str.end()));
     return ans;
 }
 

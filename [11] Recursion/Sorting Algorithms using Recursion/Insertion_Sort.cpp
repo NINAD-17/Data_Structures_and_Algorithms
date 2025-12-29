@@ -1,6 +1,8 @@
 #include <iostream>
 using namespace std;
 
+// Recursive
+// Time: O(n^n)     Space: O(n)
 void insertionSort_rec(int *arr, int size) {
     // base case 
     if(size == 0 || size == 1)
@@ -21,6 +23,8 @@ void insertionSort_rec(int *arr, int size) {
     arr[i + 1] = temp;
 }
 
+// Iterative
+// Time: O(n^n)     Space: O(1)
 void insertionSort(int *arr, int size) {
     for(int i = 1; i < size; i++) {
         int temp = arr[i];

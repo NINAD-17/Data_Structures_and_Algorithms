@@ -2,8 +2,9 @@
 using namespace std;
 
 // NOTE: To see iterative solutino of fibonacci series, go to -> ../Basic/Fibonaci_Series.cpp
+// Time: O(2^n);   Space: O(n)
 
-// If you're considering fibonacci series as 1, 1, 2, 3....
+// If you're considering fibonacci series as 0, 1, 1, 2.... 
 int fibNumFromOne(int n) {
     // Base Case
     // if(n == 1) return 0; if(n == 2) return 1; <--- Long If statement
@@ -14,7 +15,7 @@ int fibNumFromOne(int n) {
     return fibNumFromOne(n - 1) + fibNumFromOne(n - 2);
 }
 
-// If you're considering fibonacci series as 0, 1, 1, 2....
+// If you're considering fibonacci series as 1, 1, 2, 3....
 int fibNum(int n) {
     // Base Case
     if(n == 0 || n == 1)

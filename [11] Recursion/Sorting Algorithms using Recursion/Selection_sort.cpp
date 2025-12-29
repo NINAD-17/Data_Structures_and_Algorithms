@@ -1,6 +1,8 @@
 #include <iostream>
 using namespace std;
 
+// Recursive
+// Time: O(n^n)     Space: O(n)
 void selectionSortUsingRecursion(int *arr, int size) {
     // base case
     if(size == 0 || size == 1)
@@ -17,6 +19,8 @@ void selectionSortUsingRecursion(int *arr, int size) {
     selectionSortUsingRecursion(arr + 1, size - 1); // 1st element is sorted therefore arr + 1
 }
 
+// Iterative 
+// Time: O(n^n)     Space: O(1)
 void selectionSort(int *arr, int size) {
     for(int i = 0; i < size - 1; i++) {
         int minIndex = i;

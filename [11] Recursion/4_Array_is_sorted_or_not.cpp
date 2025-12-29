@@ -1,6 +1,8 @@
 #include <iostream>
 using namespace std;
 
+// Time: O(n);  Space: O(n)
+
 bool isSorted(int *arr, int lastIndex) {
     // Base Case
     if(lastIndex == 0 || lastIndex == 1)

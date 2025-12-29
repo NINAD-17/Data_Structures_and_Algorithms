@@ -23,8 +23,8 @@ void solve(vector<vector<int>> &maze, int size, vector<string> &ans, int x, int 
 
     // choices: up, down, left, right
     // 1. down
-    int new_x = x + 1;
-    int new_y = y;
+
+    int new_y = y;    int new_x = x + 1;
     if(isSafe(new_x, new_y, size, visited, maze)) {
         path.push_back('D');
         solve(maze, size, ans, new_x, new_y, visited, path);

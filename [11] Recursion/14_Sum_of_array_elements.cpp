@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 
+// Time: O(n)   Space: O(n)
 int sumOfElements(int *arr, int size) {
     // Base Case
     if(size == 0)

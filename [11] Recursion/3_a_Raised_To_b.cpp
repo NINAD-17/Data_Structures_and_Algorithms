@@ -3,6 +3,7 @@ using namespace std;
 
 // optimized solution
 // note: see image from readme file to understand the solution
+// Time: O(log num2), Space: O(log num2)
 int exponentiation_rec(int num1, int num2) {
     if(num2 == 0)
         return 1;
@@ -18,7 +19,8 @@ int exponentiation_rec(int num1, int num2) {
 }
 
 // Both methods below will take number of iterations equal to num2
-// Normal method using recursion recursion (similar to solution of iterative method)
+// Normal method using recursion (similar to solution of iterative method)
+// Time: O(num2), Space: O(num2)
 int exponentiation_rec_2(int num1, int num2) {
     if(num2 == 0)
         return 1;
@@ -28,6 +30,7 @@ int exponentiation_rec_2(int num1, int num2) {
 
 
 // Not a good solution, Use Fast Exponentiation method instead --> /Maths \For \DSA/fast_exponentiation.cpp
+// Time: O(num2), Space: O(1)
 int exponentiation(int num1, int num2) {
     int ans = 1;
     for(int i = 0; i < num2; i++) 

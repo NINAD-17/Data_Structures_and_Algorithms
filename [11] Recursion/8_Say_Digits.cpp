@@ -4,6 +4,8 @@ using namespace std;
 // For iterative solution: go to ../Numbers/Say_Digits.cpp
 // if you’re dealing with very large numbers (i.e., numbers with a lot of digits), the recursive function call stack could become quite deep, which might lead to a stack overflow. In that case, an iterative solution might be more appropriate.
 
+// Time complexity: O(log n)  - num is an int and not size of an array. 
+// Space complexity: O(log n)
 void sayDigits(int num, string *digits) {
     // Base Case
     if(num == 0)
