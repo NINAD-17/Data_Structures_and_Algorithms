@@ -15,7 +15,7 @@ void pigeonholePrinciple(vector<int> &totalPigeons, int totalHoles) {
 }
 
 int main() {
-    vector<int> pigeons = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    vector<int> pigeons = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}; // Each item is a pigeon's number/ID
     int pigeonholes = 8;
 
     pigeonholePrinciple(pigeons, pigeonholes);

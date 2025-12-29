@@ -2,15 +2,6 @@
 #include <vector>
 using namespace std;
 
-bool isPrime(int num) {
-    for(int i = 2; i < num; i++) {
-        if(num % i == 0)
-            return false;
-    }
-    return true;
-}
-
-
 // Using Sieve of Eratosthenes
 // time complexity: O(n log (log n)). This is because the Sieve of Eratosthenes algorithm runs in this time complexity. The outer loop runs n times and the inner loop runs approximately n / i times, where i is the current prime number. The sum of n / i for all i from 2 to n is approximately n log log n.
 // Space complexity: O(n)
@@ -20,11 +11,9 @@ int countPrimesUsingSOE(int num) {
 
     prime[0] = prime[1] = false; // As 0 and 1 are none prime number
 
-    for(int i = 2; i*i < num; i++) { // i*i because not need to go beyond squareroot of num. Otherwise in inner loop j will unncesary calculate i*i each time.
-        if(isPrime(i)) {
-            // count++;
-
-            for(int j = i*i; j < num; j = j + i) 
+    for(int i = 2; i * i < num; i++) { // i*i because not need to go beyond squareroot of num. Otherwise in inner loop j will unncesary calculate i*i each time.
+        if(prime[i]) { // only process if 'i' is prime
+            for (int j = i * i; j < num; j += i) 
                 prime[j] = false;
         }
     }

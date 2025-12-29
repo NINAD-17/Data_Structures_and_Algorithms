@@ -6,7 +6,7 @@ using namespace std;
 bool isPrime(int num) {
     int count = 0;
 
-    for(int i = 1; i * i <= num; i++) { // i <= sqrt(num) If you use this then time complexity is O(sqrt(n) * log(n)) Because in every iteration this sqrt function will call and it takes O(log n) time.
+    for(int i = 1; i * i <= num; i++) { // `i <= sqrt(num)` you can use this as well
         if((num % i) == 0) {
             count++;
 

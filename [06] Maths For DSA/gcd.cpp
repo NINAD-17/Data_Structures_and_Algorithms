@@ -42,7 +42,7 @@ int findGCD_UsingBinaryGCDAlgo_2(int num1, int num2) {
         return num1;
     
     int shift;
-    for(shift = 0; (num1 % 2 == 0) && (num1 % 1 == 0); shift++) {
+    for(shift = 0; (num1 % 2 == 0) && (num1 % 2 == 0); shift++) {
         num1 /= 2;
         num2 /= 2;
     }
@@ -64,6 +64,7 @@ int findGCD_UsingBinaryGCDAlgo_2(int num1, int num2) {
 } 
 
 
+// -- Euclidean Algorithm
 // Time Complexity: O(log(min(num1, num2)))
 // Space Complexity : O(1) 
 int findGCD_UsingModulus(int num1, int num2) {
@@ -76,6 +77,8 @@ int findGCD_UsingModulus(int num1, int num2) {
     return num1;
 }
 
+
+// -- Euclidean Substraction Method OR Naive Euclidean
 // Time Complexity: O(max(num1, num2))
 // Space Complexity: O(1)
 int findGCD_UsingSubstraction(int num1, int num2) {
@@ -95,6 +98,8 @@ int findGCD_UsingSubstraction(int num1, int num2) {
     return num1;
 }
 
+
+// -- Brute Force
 // Time Complexity: O(min(num1, num2))
 // Space Complexity: O(1)
 int findGCD_BruteForce(int num1, int num2) {

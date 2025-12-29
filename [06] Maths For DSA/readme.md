@@ -1,6 +1,17 @@
 # Maths for DSA
 
-## **Sieve of Eratosthenes**
+1. Sum of Factors
+2. Prime Numbers
+3. Count Primes
+4. Count primes with multiple testcases
+5. Count primes using sieve of eratosthenes
+6. Prime Factorization
+7. GCD
+8. LCM
+9. Fast Exponentiation
+10. Pigeonhole Principle
+
+## Sieve of Eratosthenes
 - The Sieve of Eratosthenes is an ancient algorithm used to find all prime numbers up to any given limit
 - in `/count_primes.cpp`(brute force approach) code we're calculating each number from `2` to `num` to determine is it prime or not. So time complexity is `O(n^n)`.
 
@@ -33,7 +44,7 @@ But if you define `int` array globally then it's max limit is `10^7` and for `bo
     - An array of size Θ(n) may not fit in memory
     - The simple Sieve is not cached friendly even for slightly bigger n. The algorithm traverses the array without locality of reference
 
-## **Segmented Sieve**:
+## Segmented Sieve
 - This algorithm overcomes the space complexity issue of the Sieve of Eratosthenes.
 - If we've input `n` very large (say 10<sup>9</sup> or higher) then normal sieve will try to create an array of size `n + 1`. And many programming language environment may not allow to create this big size of array. It's very inefficient, consuming too much memory.
 - It divides the range `[0..n-1]` into different segments and computes primes in all segments one by one.
@@ -45,18 +56,110 @@ But if you define `int` array globally then it's max limit is `10^7` and for `bo
 So, while both algorithms are used for finding prime numbers, the Segmented Sieve is more efficient when dealing with large numbers due to its lower space complexity.
 
 
-## Euclid's Algortithm
-1. **GCD/ HCF:**
-- GCD - Greatest common divisor
+## GCD (Greatest common divisor)/ HCF
 
-- It's a one factor which is maximum and can divide both the numbers perfectly and give remainder 0. The GCD of two numbers is the largest number that divides both of them without leaving a remainder.
+It's a one factor which is maximum and can divide both the numbers perfectly and give remainder 0. The GCD of two numbers is the largest number that divides both of them without leaving a remainder.
+
+Example
+```
+36 = [1, 2, 3, 4, 6, 9, 12, 18, 36] factors
+60 = [1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30] factors
+
+Greatest common divisor of 36 and 60 is 12.
+```
+
+### Ways to find GCD: 
+#### 1. Prime Factorization
+
+<img src="image.png" width=300 alt="GCD/HCF" />
+    
+In this example, prime factorization approach is used. We get GCD by multiplying common prime factors from both numbers. (refer: `./Prime_Factorization.cpp`)
+
+- Time complexity analysis: 
+    for `getPrimeFactors(num)`
+    - `k1 = factors1.size();  k2 = factors2.size()`
+    - Outer Loop: `for(int i = 2; i * i <= num; i++)` - Runs up to √n → O(√n)
+    - Inner Loop: `while(num % i == 0) num /= i;` runs only when i is a prime factor
+        - The inner while loop does NOT run for every i.
+        - It runs only when i divides the number.
+        - And each time it runs, it divides the number by i, reducing it drastically.
+        - If the number is like: `n = 2 × 2 × 2 × 2 × ... (log n times)`
+            - Then inner loop runs log n times.
+            - But this is only for i = 2.
+            - For all other i, the inner loop runs 0 or 1 times.
+        - So total time complexity: `O(√n)   // outer loop   + O(log n)  // inner loop total work`
+        - Since, `log n << √n`, we simplify it to `O(√n)` - Because the loops are not truly nested in the worst-case sense. The inner loop does NOT run `log n` times for every `i`. It runs `log n` times in total, across the entire function.
+
+    - Getting prime factors of num1 → O(√num1)
+    - Getting prime factors of num2 → O(√num2)
+    - Comparing factors → O(k1 × k2)
+    So total: `O(√num1 + √num2 + k1 × k2)`
+    - Example: 
+        ```
+        num1 = 10^12
+        num2 = 10^12
+        ```
+        Then: 
+        ```
+        √num1 = 10^6
+        k1 ≈ log2(10^12) ≈ 40
+        ```
+
+        So, `k1 × k2 = 40 × 40 = 1600`
+        This is tiny compared to 10^6.
+    
+
+#### 2. Brute Force
+Traverse till min(num1, num2) to find GCD by checking if number (i) is divisible by both numbers (num1, num2).
+
+#### 3. Euclidean Substraction Method OR Naive Euclidean
+Keep subtracting the smaller number from the larger one until both numbers become equal. That final value is the GCD.
+
+**Example: GCD(36, 60)**
+```
+60 - 36 = 24 → (36, 24)
+36 - 24 = 12 → (24, 12)
+24 - 12 = 12 → (12, 12)
+→ GCD = 12
+```
+
+#### 4. Euclidean Algorithm
+The Euclidean Algorithm is based on this mathematical identity:
+- Formula: `gcd(a, b) = gcd(b, a % b)`
+- This means:
+    - The first number becomes the second number
+    - The second number becomes the remainder
+- And this process stops when the remainder becomes 0. Because `gcd(a, 0) = a`
+
+This is a fundamental property of GCD.
+
+Learn more about Euclid's Algorithm at: <a href="https://www.codingninjas.com/studio/library/gcd-euclidean-algorithm">codingninjas.com</a>
+
 Example:
-<img src="/Maths For DSA/image.png" width=300 alt="GCD/HCF" />
+```
+GCD(36, 60)
 
-- Formula: `gcd(a, b) = gcd(a - b, b) => gcd(a % b, b)`
-- Learn more about Euclid's Algorithm at: <a href="https://www.codingninjas.com/studio/library/gcd-euclidean-algorithm">codingninjas.com</a>
+a = 36, b = 60
+→ (60, 36 % 60 = 36)
 
-2. Efficient Approach: **Binary GCD algorithm or Stein’s algorithm**.
+a = 60, b = 36
+→ (36, 60 % 36 = 24)
+
+a = 36, b = 24
+→ (24, 36 % 24 = 12)
+
+a = 24, b = 12
+→ (12, 24 % 12 = 0)
+
+STOP because b == 0
+Return a = 12
+```
+
+Note:
+- The algorithm always stops when the second number becomes 0
+- The first number at that moment is the GCD
+
+#### 5. Efficient Approach: Binary GCD algorithm or Stein’s algorithm.
 - Initialize a variable shift to count the number of common factors of 2 in `num1` and `num2`
 - `((num1 | num2) & 1) == 0` This is a bitwise operation that checks if both numbers are even. Here’s how it works:
     - The `|` operator performs a bitwise `OR` operation. If either of the bits is `1`, the result is `1`. Otherwise, it’s `0`.
@@ -84,7 +187,7 @@ Example:
 - Formula: <br>
     <img src="image-1.png" width=300 />
 
-- LCM(a, b) * GCD(a, b) = a * b
+- `LCM(a, b) * GCD(a, b) = a * b`
 
 
 ## Modular Arithmatics
@@ -93,7 +196,7 @@ Example:
 - The modulus is usually a prime number, but it can be any number.
 - In modular arithmetic, we only care about the remainder of a division operation, not the quotient.
 - Modular arithmetic is useful for a variety of reasons, including simplifying calculations and solving competitive programming problems.
--  The result of the expression `n mod m` is known as n's residue modulo m.
+- The result of the expression `n mod m` is known as n's residue modulo m.
 - In programming, modular arithmetic is often used for several reasons:
     - To keep numbers within a certain range: If you’re working with an array of size n, you might use the modulus operator to ensure that an index stays within the range 0 to n-1.
     - To prevent overflow: When dealing with large numbers, you can use the modulus operator to prevent the number from exceeding the maximum limit of the data type.
@@ -120,6 +223,16 @@ Example:
 
 - In summary, while modular arithmetic does mean that different numbers can map to the same result, this is often a useful property and not a problem. When it is a problem, there are other techniques we can use.
 
+`Factorial.cpp` example:
+- Think of “mod” as remainder math.
+    - `𝑎 % 𝑚` = the remainder when ``𝑎`` is divided by 𝑚
+.
+
+- Examples:
+    - 10 % 3 = 1
+ (because 10 = 3 ⋅ 3 + 1)17
+ 
+
 ## Fast Exponentiation
 - To reduce time complexity of brute force apporoach to find solution of problem `a^b` we use this.
 ```
@@ -128,10 +241,31 @@ a^b ----|
         |--> [(a^(b/2))^2] * a -----> If b is odd
 ```
 
+![Exponentiation by Squaring](Fast_Exponentiation.png)
+
 
 ## Pigeonhole Principle
 - The principle states that if you have more items (pigeons) than containers (pigeonholes), then at least one container must contain more than one item. For example, if you have 10 pigeons and 9 pigeonholes, then at least one pigeonhole must contain more than one pigeon.
 - Example: Given that the population of London is greater than the maximum number of hairs that can be present on a human’s head, then the pigeonhole principle requires that there must be at least two people in London who have the same number of hairs on their heads.
+- Ex
+    ```
+    Hole counts after assignment
+    Hole 0 → 1 pigeon (ID 8)
+
+    Hole 1 → 2 pigeons (IDs 1, 9)
+
+    Hole 2 → 2 pigeons (IDs 2, 10)
+
+    Hole 3 → 1 pigeon (ID 3)
+
+    Hole 4 → 1 pigeon (ID 4)
+
+    Hole 5 → 1 pigeon (ID 5)
+
+    Hole 6 → 1 pigeon (ID 6)
+
+    Hole 7 → 1 pigeon (ID 7)
+    ```
 
 
 ## Inclusive Exclusive Principle
