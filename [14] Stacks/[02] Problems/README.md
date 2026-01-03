@@ -114,3 +114,44 @@ This **amortized analysis** keeps the complexity linear, not quadratic.
 - If you look at the cost of “one drive,” it seems huge.
 - But if you drive it 50,000 times, the cost per drive is ₹20.
 - That’s amortization: spreading a big cost over many uses.
+
+## 3. The Celebrity Problem
+
+**Example**
+```
+_____________
+| 0 | 1 | 0 |
+| 0 | 0 | 0 |
+| 0 | 1 | 0 |
+‾‾‾‾‾‾‾‾‾‾‾‾‾
+```
+- Here, **ignore diagonal** part because 0, 1 and 2 are peoples so it's obvious that 0 knows 0 ans so one. [00], [11], [22].
+- Value 1 indicates that index x (person 1) knows index y (person 2). Insights from the example given below:
+    - Index 1 (person 1) -> knows no one
+    - Everyone knows 1
+    - That's why 1 is a celebrity.
+- Approach:
+    - 1 person will have entire row with 0 value.
+    - In celebrity column, entire column will have value 1 except diagonal position that is (x = y) position
+
+**Using Two Pointers approach (without using stack)**
+- **Intuition**:
+    - If person A knows person B, then A cannot be a celebrity (celebrities know nobody).
+    - If person A does not know person B, then B cannot be a celebrity (celebrities are known by everyone).
+    - Using this elimination logic, we can shrink the candidate pool with two pointers until only one candidate remains.
+
+- **Steps**:
+    - Start with two pointers: i = 0, j = n - 1.
+    - While i < j:
+        - If i knows j → i cannot be celebrity → move i++.
+        - Else → j cannot be celebrity → move j--.
+    - At the end, i is the only possible celebrity candidate.
+    - Verify candidate:
+        - Candidate’s row must be all zeros (knows nobody).
+        - Candidate’s column must be all ones except diagonal (everyone knows candidate).
+    - If both conditions hold → return candidate index, else return -1.
+
+- **Complexity**:
+    - Time: O(n) (one pass to find candidate + one pass to verify).
+    - Space: O(1).
+    This approach is optimized than Stack approach as it uses constant space.
