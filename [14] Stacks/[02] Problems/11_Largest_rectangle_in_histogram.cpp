@@ -71,7 +71,7 @@ int largestRecArea(vector<int> &heights, int size) {
 // time complexity: O(n^2)
 // space complexity: O(1)
 int largestRectangle(vector<int> &arr, int size) {
-    // make a var to stor max rectangle's size
+    // make a var to store max rectangle's size
     int max = 0;
 
     // traverse array from left to right
@@ -110,7 +110,7 @@ int main() {
     // int ans = largestRectangle(heights, heights.size());
     int ans = largestRecArea(heights, heights.size());
 
-    cout << "largest rectangle in a histogram is " << ans << endl;
+    cout << "The area of largest rectangle in a histogram is " << ans << endl;
 
     return 0;
 }

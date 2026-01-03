@@ -1,6 +1,12 @@
 #include <iostream>
 using namespace std;
 
+// Implementation of 2 stacks in one array
+// ---------------------------
+// | 1 | 2 | 3 |  |  | 4 | 5 |
+// ---------------------------
+// Here, top of stack1 is 3 and top of stack2 is 4
+
 class TwoStack {
     public: 
         int *arr;

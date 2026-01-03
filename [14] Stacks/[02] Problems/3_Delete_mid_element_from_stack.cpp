@@ -6,6 +6,11 @@ using namespace std;
 // time complexity: O(n)
 // space complexity: O(n)
 
+// Both (Iterative and Recursive) take O(n) time and O(n) space.
+// Recursive uses the function call stack, iterative uses an explicit temporary stack.
+// Recursive is more elegant but can cause stack overflow for large n.
+// Iterative is safer and more practical in production.
+
 void deleteElement(stack<int> &st, int count, int size) {
     // base case
     if(count == size / 2) {
@@ -30,6 +35,8 @@ void deleteMid(stack<int> &st) {
 }
 
 // --- iterative solution ---
+// time: O(n)
+// space: O(n)
 void deleteMid_iterative(stack<int> &st) {
 
     // make temp stack to store popped elements

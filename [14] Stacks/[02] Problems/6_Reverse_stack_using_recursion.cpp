@@ -34,6 +34,21 @@ void reverseStack(stack<int> &st) {
     insertAtBottom(st, currElement);
 }
 
+// Iterative approach
+// Time: O(n)
+// Space: O(n)
+stack<int> reverseStack_2(stack<int> &st) {
+    stack<int> tempSt;
+
+    while(!st.empty()) {
+        int top = st.top();
+        tempSt.push(top);
+        st.pop();
+    }
+
+    return tempSt;
+}
+
 int main() {
 
     stack<int> st;
@@ -45,6 +60,17 @@ int main() {
     st.push(6);
     printStack(st);
 
+    // Reverse Stack using extra stack (iterative method)
+    stack<int> tempSt = reverseStack_2(st);
+    printStack(tempSt);
+
+    st.push(7);
+    st.push(1);
+    st.push(4);
+    st.push(5);
+    st.push(6);
+
+    // Recursive approach
     reverseStack(st);
     printStack(st);
 

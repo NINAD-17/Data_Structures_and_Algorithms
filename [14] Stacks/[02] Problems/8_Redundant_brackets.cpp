@@ -45,8 +45,10 @@ bool findRedundantBrackets(string &str) {
 // ---- my code ----
 bool findRedundantBrackets_2(string &str) {
     // check the brackets are valid or not (in valid order)
-    if(!checkValidity(str))
+    if(!checkValidity(str)) {
+        cout << "Input string contains invalid brackets. Can't find redundant brackets." << endl;
         return false; // not valid
+    }
 
     stack<char> st;
 
@@ -59,7 +61,7 @@ bool findRedundantBrackets_2(string &str) {
         } else if(ch == ')' || ch == '}' || ch == ']') {
             bool isRedundant = true;
 
-            while(!st.empty() && (st.top() != '(' || st.top() != '{' || st.top() != '[')) {
+            while(!st.empty() && st.top() != '(' && st.top() != '{' && st.top() != '[') {
                 char top = st.top();
                 if(top == '+' || top == '-' || top == '*' || top == '/') {
                     isRedundant = false;
