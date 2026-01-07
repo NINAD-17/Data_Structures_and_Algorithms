@@ -8,6 +8,11 @@ using namespace std;
 // time complexity: O(n)
 // space complexity: O(n)
 
+// Example: [1 2 3 4 5]
+//      pop from queue 1 2 3 and add it in the stack as 1 -> 2 -> 3 (tos). Queue is [4 5]
+//      pop from stack 3 5 4 and add it in the queue as [4 5 3 2 1]
+//      pop first n - k element and push back at last in the queue. [3 2 1 4 5]
+
 void reverseElements(queue<int> &q, int k) {
     // create a stack to store 1st k elements of queue
     stack<int> st;
@@ -20,13 +25,13 @@ void reverseElements(queue<int> &q, int k) {
         q.pop(); // pop from front
     }
 
-    // step 2: add elements from stack in queue from front
+    // step 2: add elements from stack in queue
     while(!st.empty()) {
         q.push(st.top());
         st.pop();
     }
 
-    // step 3: attach remaining elements at rear side of queue
+    // step 3: fetch first n - k elements from queue and push_back 
     while(remainingElements--) {
         int frontElement = q.front();
         q.pop(); // pop the front element

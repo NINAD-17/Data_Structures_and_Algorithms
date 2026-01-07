@@ -4,9 +4,23 @@
 #include "../lib/print.cpp"
 using namespace std;
 
-// FIND FIRST INTEGER IN EVERY WINDOW OF SIZE K
+// FIND FIRST NEGETIVE INTEGER IN EVERY WINDOW OF SIZE K
 
-// --- sliding window approach ---
+// Example: [-8, 2, 3, -6, 10] and window size = 2
+//      window [-8, 2]  = -8
+//      window [2, 3]   = 0 (no negetive integer)
+//      window [3, -6]  = -6
+//      window [-6, 10] = -6
+//      Answer: [-8, 0, -6, -6]
+
+
+// --- Sliding Window Approach ---
+// In each window, one number gets added and one gets removed
+//                       _____________
+// pop_front (remove) <- |  |  |  |  | <- push_back (add)
+//                       ‾‾‾‾‾‾‾‾‾‾‾‾‾
+// For this we're using deque
+
 // time complexity: O(n)
 // space complexity: O(n)
 vector<long long int> firstNegegiveIntegerInEachWindow(long long int *arr, long long int n, long long int k) {
@@ -27,7 +41,7 @@ vector<long long int> firstNegegiveIntegerInEachWindow(long long int *arr, long 
     if(!dq.empty()) // means -ve element is present in the block
         ans.push_back(arr[dq.front()]);
     else 
-        dq.push_back(0); // no negetive element present in the block so push 0
+        ans.push_back(0); // no negetive element present in the block so push 0
 
     // process the remaining elements
     for(int i = k; i < n; i++) {
@@ -45,6 +59,46 @@ vector<long long int> firstNegegiveIntegerInEachWindow(long long int *arr, long 
             ans.push_back(arr[dq.front()]);
         else
             ans.push_back(0);
+    }
+
+    return ans;
+}
+
+// Optimal
+// time: O(n) // p advances monotonically; each element is checked at most once.
+// space: O(1)
+vector<long long> firstNegativeInWindow(long long *arr, int n, int k) {
+    vector<long long> ans;
+    int p = 0; // pointer to next negative candidate
+
+    for (int i = 0; i <= n - k; i++) {
+        int end = i + k - 1;
+
+        // advance p to be within [i, end] and pointing to a negative
+        if (p < i) p = i;
+        while (p <= end && arr[p] >= 0) p++;
+
+        if (p <= end) ans.push_back(arr[p]);
+        else ans.push_back(0);
+    }
+
+    return ans;
+}
+
+
+// Brute Force
+// Time complexity: O(n^2)
+// Space complexity: O(1)
+vector<long long int> firstNegetive_bruteForce(long long int *arr, int n, int k) {
+    vector<long long int> ans;
+
+    for(int i = 0; i <= (n - k); i++) {
+        for(int j = i; j < (i + k); j++) {
+            if(arr[j] < 0) {
+                ans.push_back(arr[j]);
+                break;
+            }
+        }
     }
 
     return ans;

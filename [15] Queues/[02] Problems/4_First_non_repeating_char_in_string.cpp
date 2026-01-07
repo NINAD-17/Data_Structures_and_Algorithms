@@ -1,12 +1,11 @@
 #include <iostream>
 #include <queue>
-#include <vector>
 #include <unordered_map>
 using namespace std;
 
 // FIRST NON-REPEATING CHARACTER IN STREAM
-// time complexity: 
-// space complexity:
+// time complexity: O(n)
+// space complexity: O(n)
 
 string firstNonRepeatingChar(string &str) {
     // create a map to store all the char counts
@@ -31,7 +30,7 @@ string firstNonRepeatingChar(string &str) {
                 // repeating character
                 q.pop();
             } else {
-                // non-reporting character
+                // non-repeating character
                 ans += q.front();
                 break;
             }
@@ -41,16 +40,15 @@ string firstNonRepeatingChar(string &str) {
             ans += "#";
         }
     }
-    return ans;
-        
+    return ans;       
 }
 
 int main() {
 
-    string str = "aabc";
+    string str = "aabcebd"; // aabc
 
     cout << str << endl;
-    cout << firstNonRepeatingChar(str);
+    cout << firstNonRepeatingChar(str) << endl;
 
     return 0;
 }
