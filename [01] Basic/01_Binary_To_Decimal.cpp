@@ -5,6 +5,17 @@ using namespace std;
 // Time Complexity:  O(log(n))
 // Space complexity: O(1)
 
+int binToDec_without_pow(int binaryNo) {
+    int ans = 0, i = 1;
+
+    while(binaryNo != 0) {
+        int digit = binaryNo % 10;
+        ans += digit * i;
+        binaryNo /= 10;
+        i *= 2; // next power of 2
+    }
+}
+
 int binToDec(int binaryNo) {
     int ans = 0, i = 0;
 

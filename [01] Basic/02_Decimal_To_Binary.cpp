@@ -47,7 +47,7 @@ int usingDivBy2Method(int decNum) {
         i *= 10;
         decNum /= 2;
     }
-
+ 
     return binary;
 }
 

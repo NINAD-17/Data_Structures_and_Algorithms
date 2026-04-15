@@ -43,6 +43,9 @@ int main() {
 
     int base10Int;
 
+    int x = 10;
+    cout << "With regular ~ complement of 10 it'll give " << ~x << endl; // But we want different that is 10 = 1010 and ~10 = 0101 which is 5
+
     cout << "Enter a number: ";
     cin >> base10Int;
 

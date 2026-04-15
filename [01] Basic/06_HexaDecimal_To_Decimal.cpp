@@ -12,6 +12,12 @@ int convertItToNum(char ch) {
         return num[ch - 97];
     else
         return -1;
+
+    // OR
+    // if(ch >= 'A' && ch <= 'F')
+    //     return ch - 'A' + 10;
+    // else if(ch >= 'a' && ch <= 'f')
+    //     return ch - 'a' + 10;
 }
 
 int hexaDecToDecimal(string num) {
@@ -21,14 +27,14 @@ int hexaDecToDecimal(string num) {
         int lastNumInt;
         char lastNum = num[num.length() - 1];
 
-        if(lastNum >= 'A')
-            lastNumInt = convertItToNum(int(lastNum)); // You can also use only 'lastNum'. It's same.
+        if((lastNum >= 'A' && lastNum <= 'F') || (lastNum >= 'a' && lastNum <= 'f'))
+            lastNumInt = convertItToNum(lastNum); // You can also use only 'lastNum'. It's same.
         else
             lastNumInt = lastNum - '0';
 
         ans += pow(16, i++) * lastNumInt;
-        num.pop_back();
-        num.resize(num.length() - 1); // 2nd method
+        num.pop_back(); // removes last char
+        // num.resize(num.length() - 1); // 2nd method
     }
 
     return ans;

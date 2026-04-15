@@ -9,7 +9,7 @@ int main() {
     
     cout << "a & b: " << (a & b) << endl; // 0100 & 0110 = 0100(4)
     cout << "a | b: " << (a | b) << endl; // 0100 | 0110 = 0110(6)
-    cout << "a ^ b: " << (a ^ b) << endl; // 0100 ^ 0110 = 0011(2)
+    cout << "a ^ b: " << (a ^ b) << endl; // 0100 ^ 0110 = 0010(2)
     cout << "~a and ~b: " << ~a << " and " << ~b << endl;
 
 
