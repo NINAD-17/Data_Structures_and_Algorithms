@@ -162,3 +162,65 @@ int gcd(int a, int b) {
 ## Climbing Stairs
 
 Explaination: [Copilot Explaination](https://copilot.microsoft.com/shares/J1G9bP1TRNfSRN2kjXzSg)
+
+### 1. Brute Force Solution (using recursion)
+- We can use recursion/backtracking:
+    - Start at stair 0.
+    - At each point, try taking a 1‑step or a 2‑step.
+    - Stop when you reach exactly n.
+    - If you go beyond n, discard that path.
+
+- Example: n = 4
+    ```
+    1 + 1 + 1 + 1
+    1 + 1 + 2
+    1 + 2 + 1
+    2 + 1 + 1
+    2 + 2
+    ```
+
+    Recursive Tree
+    ```
+    Start (0)
+    ├── take 1 → sum=1
+    │     ├── take 1 → sum=2
+    │     │     ├── take 1 → sum=3
+    │     │     │     ├── take 1 → sum=4 ✅ [1,1,1,1]
+    │     │     │     └── take 2 → sum=5 ❌ (too far)
+    │     │     └── take 2 → sum=4 ✅ [1,1,2]
+    │     └── take 2 → sum=3
+    │           ├── take 1 → sum=4 ✅ [1,2,1]
+    │           └── take 2 → sum=5 ❌ (too far)
+    └── take 2 → sum=2
+        ├── take 1 → sum=3
+        │     ├── take 1 → sum=4 ✅ [2,1,1]
+        │     └── take 2 → sum=5 ❌ (too far)
+        └── take 2 → sum=4 ✅ [2,2]
+
+    ```
+
+- Complexity: 
+    - Time complexity:
+        - Each step branches into 2 choices → recursion tree size ≈ O(2^n).
+        - For n = 4, small tree. For large n, exponential growth.
+        - Exact number of valid sequences = Fibonacci(n+1).
+
+    - Space complexity:
+        - Maximum recursion depth = n (all 1‑steps).
+        - So space = O(n).
+
+### 2. Optimized Approach (using Fibonacci Logic)
+Instead of printing every sequence (brute force), we just count them using a recurrence relation:
+- To reach stair 𝑛, your last move could be:
+    - From stair 𝑛 − 1 (a 1‑step), or
+    - From stair 𝑛 − 2 (a 2‑step).
+
+So:    f(n) = f(n — 1) + f(n — 2)
+This is exactly the **Fibonacci relation**.
+
+- Base cases
+    - f(1) = 1 → only [1]
+    - f(2) = 2 → [1+1], [2]
+
+- Example:
+    ![alt text](climbing_stairs_fibonacci_soln.png)
