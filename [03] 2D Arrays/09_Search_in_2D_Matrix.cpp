@@ -17,7 +17,7 @@ bool searchIn2DMatrix(vector<vector<int>>& matrix, int target) {
     int cols = matrix[0].size();
     int st = 0, en = (rows * cols) - 1;
 
-    while(st < en) {
+    while(st <= en) {
         int mid_index = st + (en - st) / 2; // mid index - 1D
         
         // 2D index - row and col
@@ -47,7 +47,7 @@ void printVector(vector<vector<int>> v) {
 
 int main() {
     vector<vector<int>> arr = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-    int rows = 3, cols = 3, target = 5;
+    int rows = 3, cols = 3, target = 6;
 
     // cout << "Enter total number of rows & cols: \nRows: ";
     // cin >> rows;
