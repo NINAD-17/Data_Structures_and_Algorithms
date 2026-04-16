@@ -1,7 +1,35 @@
 #include <iostream>
 #include <climits>
 #include <algorithm>
+#include <vector>
 using namespace std;
+
+// Extended Optimal Approach - In this all pairs are sorted by first element as well as second.
+// First compare the first element of each pair.
+// If they’re equal, compare the second element.
+// Example:
+//     - (1,4) comes before (2,3) because 1 < 2.
+//     - (2,3) comes before (2,5) because 3 < 5.
+
+// Time complexity: O(n log n)
+void pairSum2_extended(int *arr, int n, int sum, int *pairsArr) {
+    vector<pair<int, int>> result; // vector of pairs
+    sort(arr, arr + n);
+
+    int st = 0, en = n - 1;
+    while(st <= en) {
+        if(arr[st] + arr[en] == sum) {
+            result.push_back({arr[st], arr[en]});
+            st++, en--;
+        } else if(arr[st] + arr[en] > sum) {
+            en--;
+        } else {
+            st++;
+        }
+    }
+
+    sort(result.begin(), result.end()); // sorts lexicographically
+}
 
 // Optimal approach
 // Time Complexity: O(n log n)
