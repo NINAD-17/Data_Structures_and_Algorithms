@@ -43,8 +43,9 @@ void printAllDuplicatesUsingUOMap(string str) {
     }
 }
 
-// Time Complexity: 
+// Time Complexity: O(n log n)
 // The time complexity of inserting an element into a map is O(log n), where n is the number of elements in the map. Since the function inserts each character of the input string into the map, the total time complexity of this operation is O(n log n). The rest of the operations in the function, such as iterating over the elements of the map and printing the results, take linear time, so they do not affect the overall time complexity.
+// Space complexity: O(n)
 void printAllDuplicatesUsingMap(string str) {
     map<char, int> mp;
 
@@ -57,7 +58,8 @@ void printAllDuplicatesUsingMap(string str) {
     }
 }
 
-// Time Complexity: O(n)
+// Time Complexity: O(n^2)
+// Auxillary space: O(1)
 void printAllDuplicates(string str) {
     
     for(int i = 0; i < str.length(); i++) {

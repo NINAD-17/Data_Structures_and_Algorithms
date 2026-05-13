@@ -11,7 +11,7 @@ int main() {
     for(int i = 0; str[i] != '\0'; i++) 
         length++;
 
-    cout << "Length of string is " << length << endl;
+    cout << "Length of string " << str << " is " << length << endl;
     
     return 0;
 }

@@ -1,6 +1,8 @@
 #include <iostream>
 using namespace std;
 
+// Problem: https://leetcode.com/problems/count-binary-substrings/description/
+
 int countBinSubstrings(string str) {
     string temp = "";
     int subStrCount = 0;
