@@ -6,6 +6,10 @@ using namespace std;
 // subset always contains 2^n elements. n is the total number of elements in an array.
 
 // --- recursion ---
+// Time: Total subsets = 2^n. For each subset, building the output vector can take up to O(n) in the worst case.
+//       - therefore, O(n * 2^n)
+// Space: Recursion depth = O(n). Each recursive call has its own copy of output (since you pass by value).
+//       - therefore, O(n * 2^n)
 void solve(int *arr, int size, vector<int> output, int index, vector<vector<int>> &ans) {
     // Base Case
     if(index >= size) {
