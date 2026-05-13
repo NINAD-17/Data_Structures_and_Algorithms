@@ -3,8 +3,38 @@ using namespace std;
 
 #define MOD 1000000007 // %(10 ^ 9 + 7) output could be very large so mod it
 
+long long int usingTabulation_spaceOptimized(int n) {
+    long long prev2 = 0;
+    long long prev1 = 1;
+
+    for(int i = 3; i <= n; i++) {
+        long long int withoutSwap = prev1 % MOD;
+        long long int withSwap = prev2 % MOD;
+
+        long long int sum = (withoutSwap + withSwap) % MOD;
+        long long int ans = ((n - 1) * sum) % MOD;
+        prev2 = prev1;
+        prev1 = ans;
+    }
+
+    return prev1;
+}
+
 long long int usingTabulation(int n) {
-    vector<long long int> dp();
+    vector<long long int> dp(n + 1, 0);
+    dp[1] = 0;
+    dp[2] = 1;
+
+    for(int i = 3; i <= n; i++) {
+        long long int withoutSwap = dp[i - 1] % MOD;
+        long long int withSwap = dp[i - 2] % MOD;
+
+        long long int sum = (withoutSwap + withSwap) % MOD;
+        long long int ans = ((n - 1) * sum) % MOD;
+        dp[i] = ans;
+    }
+
+    return dp[n];
 }
 
 long long int usingMemoization(int n, vector<long long int> &dp) {

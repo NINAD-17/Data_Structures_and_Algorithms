@@ -15,6 +15,14 @@ using namespace std;
 //      Pay 15 and climb two steps to reach the top.
 //      The total cost is 15.
 
+// Summary:
+// - We can start from 0th or 1st stair.
+// - We've to pay cost, only then we can move 1 or 2 steps ahead.
+// - Return min cost to reach top floor.
+
+
+// Time: O(n)
+// Space: O(1)
 int usingTabulation_spaceOptimized(vector<int> &cost, int n) {
     int prev2 = cost[0];
     int prev1 = cost[1];
@@ -28,6 +36,8 @@ int usingTabulation_spaceOptimized(vector<int> &cost, int n) {
     return min(prev1, prev2);
 }
 
+// Time: O(n)
+// Space: O(n)
 int usingTabulation(vector<int> &cost, int n) {
     vector<int> dp(n + 1);
     dp[0] = cost[0];
@@ -39,6 +49,8 @@ int usingTabulation(vector<int> &cost, int n) {
     return min(dp[n - 1], dp[n - 2]);
 }
 
+// Time: O(n)
+// Space: O(n) recursion stack + O(n) dp array
 int usingMemoization(vector<int> &cost, int n, vector<int> &dp) {
     // base case
     if(n == 0)
@@ -53,6 +65,8 @@ int usingMemoization(vector<int> &cost, int n, vector<int> &dp) {
     return dp[n];
 }
 
+// Time: O(2^n)
+// Space: O(n)
 int usingRecursion(vector<int> &cost, int n) {
     // base case
     if(n == 0)
@@ -62,6 +76,17 @@ int usingRecursion(vector<int> &cost, int n) {
 
     int ans = cost[n] + min(usingRecursion(cost, n - 1), usingRecursion(cost, n - 2));
     return ans;
+}
+
+int solveFromZero(vector<int> &cost, int i, int n) {
+    // Base case: reached the top
+    if(i >= n) return 0;
+
+    // Pay cost at current stair, then move 1 or 2 steps
+    int oneStep = cost[i] + solveFromZero(cost, i+1, n);
+    int twoStep = cost[i] + solveFromZero(cost, i+2, n);
+
+    return min(oneStep, twoStep);
 }
 
 int minCostClimbingStairs(vector<int> &cost) {
@@ -78,6 +103,8 @@ int minCostClimbingStairs(vector<int> &cost) {
     cout << "using tabulation: " << ans << endl;
 
     cout << "using tabulation space optimized: " << usingTabulation_spaceOptimized(cost, n) << endl;
+
+    // return min(solveFromZero(cost, 0, n), solveFromZero(cost, 1, n));
 }
 
 int main() {

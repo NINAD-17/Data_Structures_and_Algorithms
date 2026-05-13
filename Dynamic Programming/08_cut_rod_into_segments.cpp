@@ -6,7 +6,10 @@ int usingTabulation(vector<int> &cuts, int rodLen) {
     dp[0] = 0;
 
     for(int i = 1; i <= rodLen; i++) {
-
+        for(int j = 0; j < cuts.size(); j++) {
+            if(i - cuts[j] >= 0)
+                dp[i] = max(dp[i], 1 + dp[i - cuts[i]]);
+        }
     }
 } 
 

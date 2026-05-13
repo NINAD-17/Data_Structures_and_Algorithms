@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Time: O(n)
+// Space: O(1)
 int usingOptimizedTabulation(vector<int> &nums, int n) {
     vector<int> dp(n, 0);
     int prev2 = 0;
@@ -17,19 +19,25 @@ int usingOptimizedTabulation(vector<int> &nums, int n) {
     return prev1;
 }
 
+
+// Time: O(n)
+// Space: O(n)
 int usingTabulation(vector<int> &nums, int n) {
     vector<int> dp(n, 0);
     dp[0] = nums[0];
+    dp[1] = max(nums[0], nums[1]); 
 
-    for(int i = 1; i < n; i++) {
+    for(int i = 2; i < n; i++) {
         int incl = dp[i - 2] + nums[i]; 
         int excl = dp[i - 1] + 0;
         dp[i] = max(incl, excl);
     }
 
-    return dp[n];
+    return dp[n - 1];
 }
 
+// Time: O(n)
+// Space: O(n) + O(n) => O(n)
 int usingMemoization(vector<int> &nums, int n, vector<int> &dp) {
     // Base Case
     if(n < 0)
@@ -48,6 +56,8 @@ int usingMemoization(vector<int> &nums, int n, vector<int> &dp) {
     return dp[n];
 }
 
+// Time: O(2^n)
+// Space: O(n)
 int usingRecursion(vector<int> &nums, int n) {
     // Base Case
     if(n < 0)
@@ -62,10 +72,30 @@ int usingRecursion(vector<int> &nums, int n) {
     return max(incl, excl);
 }
 
+
+// Time: O(2^n)
+// Space: O(n)
+int usingRecursion_left_to_right(vector<int> &nums, int i) {
+    // Base Case
+    if(i >= nums.size())
+        return 0;
+    
+    if(i == nums.size() - 1)
+        return nums[nums.size() - 1];
+
+    int incl = usingRecursion_left_to_right(nums, i + 2) + nums[i];
+    int excl = usingRecursion_left_to_right(nums, i + 1) + 0;
+
+    return max(incl, excl);
+}
+
 int maximumNonAdjacentSum(vector<int> &nums) {
     // Approach: Using Recursion
     int n = nums.size();
-    int ans = usingRecursion(nums, n - 1); // Traversing from right to left
+    int ans = usingRecursion(nums, n - 1); // Traversing from right to left // n - 1 is the last index
+    cout << "Answer using recursion: " << ans << endl;
+
+    ans = usingRecursion_left_to_right(nums, 0); // Traversing from left to right // 0 is the first index
     cout << "Answer using recursion: " << ans << endl;
 
     // Approach: Recursion + Memoization (Top Down)

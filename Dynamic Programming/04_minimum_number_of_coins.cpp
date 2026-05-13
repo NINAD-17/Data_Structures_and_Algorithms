@@ -11,8 +11,10 @@ using namespace std;
 //      iii. [3 + 3 + 1] (this is the minimum answer)
 
 // Approach: Tabulation
+// Time: O(n) * O(coins.size())
+// Space: O(n)
 int usingTabulation(vector<int> &coins, int targetAmt) {
-    // dp[i] = minimum coins required to make amount i  
+    // dp[i] = minimum number of coins required to make amount i  
     vector<int> dp(targetAmt + 1, INT_MAX);
     dp[0] = 0; // Base case: 0 coins needed to make amount 0
 
@@ -20,7 +22,8 @@ int usingTabulation(vector<int> &coins, int targetAmt) {
     for(int i = 1; i <= targetAmt; i++) {
         // Solve every amount figure from 1 to targetAmt
         for(int j = 0; j < coins.size(); j++) {
-            if(i - coins[j] >= 0 && dp[i - coins[j] != INT_MAX]) {
+            // For each amount utilize all the coins to find an answer
+            if(i - coins[j] >= 0 && dp[i - coins[j]] != INT_MAX) {
                 dp[i] = min(dp[i], 1 + dp[i - coins[j]]);
             }
         }
@@ -34,6 +37,8 @@ int usingTabulation(vector<int> &coins, int targetAmt) {
 }
 
 // Approach: Memoization
+// Time: O(n) * O(coins.size())
+// Space: O(n) + O(n)
 int usingMemoization(vector<int> &coins, int targetAmt, vector<int> &dp) {
     // Base Case 1: If target becomes 0, no coins are needed.
     if(targetAmt == 0) {
@@ -55,7 +60,7 @@ int usingMemoization(vector<int> &coins, int targetAmt, vector<int> &dp) {
     // Try every coin one by one.
     for(int i = 0; i < coins.size(); i++) {
         // Recursive call: reduce target by current coin value.
-        int ans = usingRecursion(coins, targetAmt - coins[i]);
+        int ans = usingMemoization(coins, targetAmt - coins[i], dp);
 
         // If recursion returned a valid solution (not INT_MAX),
         // then total coins = 1 (the coin we just used) + ans (coins for remainder).
@@ -71,6 +76,8 @@ int usingMemoization(vector<int> &coins, int targetAmt, vector<int> &dp) {
 }
 
 // Approach: Recursive Brute Force
+// Time: O(2^n)
+// Space: O(n)
 int usingRecursion(vector<int> &coins, int targetAmt) {
     // Base Case 1: If target becomes 0, no coins are needed.
     if(targetAmt == 0) {
