@@ -24,10 +24,7 @@ Node* buildTree(Node* &root) {
     // initially the root is NULL
     int data;
 
-    if(root == NULL)
-        cout << "enter data for root node: ";
-    else 
-        cout << "enter data: ";
+    if(root == NULL) cout << "enter data for root node: ";
     cin >> data;
     cout << endl;
 
@@ -124,8 +121,10 @@ void levelOrderTraversal(Node* &root) {
 }
 
 // 2. using height (recursive)
-// time Complexity: O(n^2) in the worst case (when the tree is skewed). This is because for each level (and there are n levels for a skewed tree), we might end up traversing all nodes of the tree.
-// space Complexity: O(h), where h is the height of the tree. This is due to the recursive call stack.
+// Time Complexity: O(h * n)
+//   - Balanced tree: O(n log n) since h ≈ log n
+//   - Skewed tree: O(n^2) since h = n
+// Space Complexity: O(h) (recursion stack depth)
 int height(Node* node) {
     if(node == NULL) 
         return 0;

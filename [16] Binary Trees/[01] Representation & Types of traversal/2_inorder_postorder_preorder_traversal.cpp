@@ -43,6 +43,8 @@ Node* buildTree(Node* &root) {
 }
 
 // INORDER: LNR (left middle right)
+// time: O(n)
+// space: O(h) OR O(n) on skew tree and O(log n) on balanced tree
 void inorder(Node* &root) {
     // base case
     if(root == NULL)
