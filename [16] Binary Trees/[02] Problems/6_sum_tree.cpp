@@ -3,14 +3,31 @@
 using namespace std;
 
 // SUM TREE
+// A Sum Tree is a binary tree where every non‑leaf node’s value equals the sum of the values of its left and right subtrees.
+//      node -> data = sum(left subtree) + sum(right subtree)
+
+// Example:
+/*
+        20
+       /  \
+      6    4
+     / \   / \
+    3   3 3   1
+*/
+// Node(6) = 3 + 3
+// Node(4) = 3 + 1
+// Node(20) = 6 + 4 + (all grandchildren sums)
+
+
+// Optimized Approach
 // time complexity: O(n)
 // space complexity: O(n)
-
 pair<int, bool> isSumTree(Node* root) {
     // base case
     if(root == NULL)
         return make_pair(0, true);
 
+    // leaf node case
     if(root -> left == NULL && root -> right == NULL)
         return make_pair(root -> data, true);
 
@@ -30,6 +47,30 @@ pair<int, bool> isSumTree(Node* root) {
     }
 
     return ans;
+}
+
+
+// Approach 1:
+// Time: O(n^2)
+// Space: O(h)
+int sum(Node* root) {
+    if(root == NULL) return 0;
+    return sum(root->left) + sum(root->right) + root->data;
+}
+
+bool isSumTree_2(Node* root) {
+    if(root == NULL || (root->left == NULL && root->right == NULL))
+        return true;
+
+    // get sum of left and right subtrees
+    int leftSum = sum(root->left);
+    int rightSum = sum(root->right);
+
+    // check current node condition
+    bool condn = (root->data == leftSum + rightSum);
+
+    // recursively check left and right subtrees
+    return condn && isSumTree_2(root->left) && isSumTree_2(root->right);
 }
 
 int main() {

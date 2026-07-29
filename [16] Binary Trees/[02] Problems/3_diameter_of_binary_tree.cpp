@@ -95,5 +95,8 @@ int main() {
     cout << "diameter of binary tree is " << diameter(root) << endl;
     cout << "diameter of binary tree is " << diameter_optimized(root) << endl;
 
+    cout << endl << endl;
+    cout << "Diameter With Comments: " << diameterWithComments(root) << endl;
+
     return 0;
 }

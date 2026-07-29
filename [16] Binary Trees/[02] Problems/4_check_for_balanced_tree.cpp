@@ -27,7 +27,7 @@ bool isBalanced(Node* root) {
     bool diff = abs(height(root -> left) - height(root -> right)) <= 1;
 
     if(left && right && diff)
-        return 1;
+        return true;
     else    
         return false;
 }
@@ -50,7 +50,7 @@ pair<bool, int> isBalancedFast(Node* root) {
     bool diff = abs(left.second - right.second) <= 1;
 
     pair<bool, int> ans;
-    ans.second = max(left.second, right.second) + 1;
+    ans.second = max(left.second, right.second) + 1; // save height
     
     if(leftAns && rightAns && diff)
         ans.first = true;
